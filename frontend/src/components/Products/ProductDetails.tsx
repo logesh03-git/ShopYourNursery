@@ -1,8 +1,8 @@
 import BlackDot from "../../svgIcons/BlackDot";
 import Star from "../../svgIcons/Star";
 import pet from "../../assets/producticons/pet.png";
-import waterdrop from "../../assets/producticons/Water.png";
-import sun from "../../assets/producticons/Sun.png";
+import waterdrop from "../../assets/producticons/water.png";
+import sun from "../../assets/producticons/sun.png";
 import Button from "./Button";
 import { useState } from "react";
 import IconVthText from "./IconVthText";
