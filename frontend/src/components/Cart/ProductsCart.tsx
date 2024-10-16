@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from "react";
-import { products } from "../../constants/products";
+import { plantProducts } from "../../constants/tempProducts";
 import { useCart } from "../../hooks/useCart";
 import CartBox from "./CartBox";
 import OrderSummary from "./OrderSummary";
@@ -10,11 +10,11 @@ export type cartProductsType = productProps & cartItem;
 
 export default function ProductsCart() {
   const { cart } = useCart();
-  const [productsInCart, setProductsInCart] = useState<cartProductsType[]>([]);
+  const [productsInCart, setProductsInCart] = useState<any[]>([]);
   useEffect(() => {
-    const cartProducts: cartProductsType[] = [];
+    const cartProducts: any = [];
     cart.forEach((value, productId) => {
-      const product = products.find((item) => item.id === productId);
+      const product = plantProducts.find((item) => item.id === productId);
       if (product) {
         cartProducts.push({ ...product, ...value });
       }

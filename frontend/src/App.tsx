@@ -8,6 +8,8 @@ const ShopProducts = React.lazy(
 const FavoritePage = React.lazy(() => import("./pages/Favorite/FavoritePage"));
 import Layout from "./layout/Layout";
 import { Suspense } from "react";
+import ProductLanding from "./components/SearchProducts/ProductLanding";
+import Loading from "./components/Loading/Loading";
 export default function App() {
   return (
     <BrowserRouter>
@@ -16,13 +18,7 @@ export default function App() {
           path="/"
           element={
             <Layout>
-              <Suspense
-                fallback={
-                  <div className="flex justify-center items-center h-screen font-semibold text-xl">
-                    Loading...
-                  </div>
-                }
-              >
+              <Suspense fallback={<Loading />}>
                 <HomePage />
               </Suspense>
             </Layout>
@@ -32,14 +28,18 @@ export default function App() {
           path="/shop-plants"
           element={
             <Layout>
-              <Suspense
-                fallback={
-                  <div className="flex justify-center items-center h-screen font-semibold text-xl">
-                    Loading...
-                  </div>
-                }
-              >
+              <Suspense fallback={<Loading />}>
                 <ShopProducts />
+              </Suspense>
+            </Layout>
+          }
+        />
+        <Route
+          path="/shop-plants/:id"
+          element={
+            <Layout>
+              <Suspense fallback={<Loading />}>
+                <ProductLanding />
               </Suspense>
             </Layout>
           }
@@ -48,13 +48,7 @@ export default function App() {
           path="/cart"
           element={
             <Layout>
-              <Suspense
-                fallback={
-                  <div className="flex justify-center items-center h-screen font-semibold text-xl">
-                    Loading...
-                  </div>
-                }
-              >
+              <Suspense fallback={<Loading />}>
                 <CartPage />
               </Suspense>
             </Layout>
@@ -64,13 +58,7 @@ export default function App() {
           path="/favorite"
           element={
             <Layout>
-              <Suspense
-                fallback={
-                  <div className="flex justify-center items-center h-screen font-semibold text-xl">
-                    Loading...
-                  </div>
-                }
-              >
+              <Suspense fallback={<Loading />}>
                 <FavoritePage />
               </Suspense>
             </Layout>

@@ -1,9 +1,9 @@
-export default function Star() {
+export default function Star({ size = "18" }: any) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width="19"
-      height="18"
+      width={size}
+      height={size}
       viewBox="0 0 19 18"
       fill="none"
     >

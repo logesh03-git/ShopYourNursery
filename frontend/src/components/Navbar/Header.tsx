@@ -25,7 +25,7 @@ export default function Header() {
           <NavLink to="/blog">Blog</NavLink>
         </li>
         <li>
-          <NavLink to="/contact-us">Blog</NavLink>
+          <NavLink to="/contact-us">Contact Us</NavLink>
         </li>
         <li>
           <NavLink to="faqs">FAQ's</NavLink>
