@@ -3,11 +3,15 @@ import Favorite from "../../svgIcons/Favorite";
 import Star from "../../svgIcons/Star";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import { iconMap } from "../../constants/iconMapping";
+import { useContext } from "react";
+import { WishListContext } from "../../contexts/WishListProvider";
 export default function ProductCard({ product }: any) {
+  const { wishList, handleFavorite } = useContext(WishListContext);
   const navigate = useNavigate();
   const handleNavigate = () => {
-    navigate(`/shop-plants/${product.id}`, { state: { name: product.title } });
+    navigate(`/shop-plants/${product.id}`);
   };
+
   const Icon = iconMap.get(product.place)?.icon;
   const Name = iconMap.get(product.place)?.name;
   return (
@@ -34,8 +38,12 @@ export default function ProductCard({ product }: any) {
               {product.rating}/{product.reviewsCount} Reviews
             </span>
           </div>
-          <div className="w-fit">
-            <Favorite size={15} outlineColor="red" />
+          <div onClick={() => handleFavorite(product.id)} className="w-fit">
+            <Favorite
+              size={15}
+              outlineColor="red"
+              fill={wishList.includes(product.id) ? "red" : ""}
+            />
           </div>
         </div>
         <h4 className="font-Poppins font-medium text-sm text-nowrap truncate">

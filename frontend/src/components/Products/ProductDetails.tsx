@@ -4,7 +4,7 @@ import pet from "../../assets/producticons/pet.png";
 import waterdrop from "../../assets/producticons/water.png";
 import sun from "../../assets/producticons/sun.png";
 import Button from "./Button";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import IconVthText from "./IconVthText";
 import Shipping from "../../svgIcons/Shipping";
 import Replacement from "../../svgIcons/Replacement";
@@ -12,7 +12,10 @@ import Leaf from "../../svgIcons/Leaf";
 import PreOrder from "../../svgIcons/PreOrder";
 import { useCart } from "../../hooks/useCart";
 import { useNavigate } from "react-router-dom";
+import Favorite from "../../svgIcons/Favorite";
+import { WishListContext } from "../../contexts/WishListProvider";
 export default function ProductDetails({ product }: any) {
+  const { wishList, handleFavorite } = useContext(WishListContext);
   const navigate = useNavigate();
   const { handleAddToCart } = useCart();
   const [imgIndex, setImgIndex] = useState<number>(0);
@@ -55,11 +58,21 @@ export default function ProductDetails({ product }: any) {
         ))}
       </div>
       <div className="max-w-[24rem] w-full">
-        <div className="w-[24rem] max-h-[32rem] h-fit bg-slate-200  rounded-[0.9375rem]">
+        <div className="w-[24rem] max-h-[32rem] h-fit bg-slate-200  rounded-[0.9375rem] relative">
           <img
             className="rounded-[0.9375rem] object-contain"
             src={imgs[imgIndex]}
           />
+          <div
+            onClick={() => handleFavorite(product.id)}
+            className="absolute bg-white/80 cursor-pointer top-8 right-8 rounded-full overflow-hidden size-[2.3rem] flex justify-center items-center pt-1"
+          >
+            <Favorite
+              size={22}
+              outlineColor="red"
+              fill={wishList.includes(product.id) ? "red" : ""}
+            />
+          </div>
         </div>
         {/* <div className="font-Poppins font-medium mt-10">
           {product.description}

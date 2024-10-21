@@ -1,4 +1,4 @@
-import { useLocation, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import BreadCrumb from "../BreadCrumb/BreadCrumb";
 import ProductDetails from "../Products/ProductDetails";
 import ProductRow from "../Products/ProductRow";
@@ -6,7 +6,6 @@ import { plantProducts } from "../../constants/tempProducts";
 import ProductDescription from "./ProductDescription";
 
 export default function ProductLanding() {
-  const plantName = useLocation().state.name;
   const { id } = useParams();
   const product = plantProducts.find(
     (product) => product.id == parseInt(id as string)
@@ -14,7 +13,7 @@ export default function ProductLanding() {
   return (
     <div className="flex flex-col max-w-[1600px] w-full px-[5vw] mb-10">
       <div className="mt-5 mb-8">
-        <BreadCrumb plantName={plantName} />
+        <BreadCrumb plantName={product?.title} />
       </div>
       <ProductDetails product={product} />
       <ProductDescription product={product} />
