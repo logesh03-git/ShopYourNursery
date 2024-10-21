@@ -12,7 +12,7 @@ export default function ProductRow({
       <h2 className="font-Poppins font-semibold text-xl mb-10">{title}</h2>
       <div className="flex gap-x-12 items-center overflow-x-auto no-scrollbar">
         {products.map((product) => (
-          <ProductCard product={product} />
+          <ProductCard key={product.id} product={product} />
         ))}
       </div>
     </div>

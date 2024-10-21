@@ -11,10 +11,14 @@ import Replacement from "../../svgIcons/Replacement";
 import Leaf from "../../svgIcons/Leaf";
 import PreOrder from "../../svgIcons/PreOrder";
 import { useCart } from "../../hooks/useCart";
+import { useNavigate } from "react-router-dom";
 export default function ProductDetails({ product }: any) {
+  const navigate = useNavigate();
   const { handleAddToCart } = useCart();
   const [imgIndex, setImgIndex] = useState<number>(0);
+  const [selectSize, setSize] = useState(-1);
   const imgs = [
+    product.img,
     "https://s3-alpha-sig.figma.com/img/3665/6b0c/6916bf87e9e53802eeaf0c523ec63bb1?Expires=1730073600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=Y04suTkeBCQJEgXC3iPQwB2CcH-fTUl5wBnF~DQH0TWkl~a-bnIh0DECApTWmh3vrmvmM7fyo4TnXDlPPSOCEv7Ya9TCqiC6tAKza6Xz5POvyMCjS7U4tFeM4SyKMF9MZOXl-SpEy7zEu-vJyHE4-h7JwBdQlvlJ1wgkzNfngNZk237JWavKFGeGjoazoIrnf48zmks0d4UqW-20lHra9PI6IF9A8HXVc5bQy2MYBY5cK4pAQpWz~kKaHQGfTQboshM4NgLZyiOzRIGKi93Oa3MdArkF7oHwbgvOGaJRhge0M6u0seid1k5htK54JvQDqlL5KKDRuMpFJgPm-XBK7A__",
     "https://s3-alpha-sig.figma.com/img/0ba1/76a6/24740c8e3cfac0f483ee29483b92df7b?Expires=1730073600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=BY3FtYphCoQaUtIY3oOW-Pmk7D3MI8WxJxiyHXlpo6YQmTyruclqdFXN8YdYKkOZ7mqLZvRFoqOfq5ggFlMjYCOBx-eU6D9DU9Atl6uO~refQI6PbGlIZPMYYRnbnzHjS9hY6y8T3vFNtZzxSDwwdSYhjqB9sE~HhymIsMv~xok4IfQVUIDfjbanKWLgDxKte23zymtN~QhCcqmUMhKvSeVVDGS1Dsj5rXIbnCqf~0Ph1L7Wg9McMhD2Dng6Js9c3GmH4bU9dUVHKBA3IUQKO~rjuravNZI3L7aOobQZv-Gi8GrqQothS60isl2QrV8EZEN01~9gAlzm5CMXgGaUWw__",
     "https://s3-alpha-sig.figma.com/img/e284/a807/6bfcf242a851b0ced5b8f7c546d691c0?Expires=1730073600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=CFgoDfI~q7VuMFyl~5qzdETk09XvSEn8Q6X3C1VJgJ5PMpkYKrAVwMaspj5pPBTuWUqLcHlpPZuTUjfvCZlDAgFqF6QRkJlNUQvbLensqU2cy4TlH138NI4ihTNWcu1Zl20W~daNXE3pW2~jSDE3HJaz8vuyQu-aAis-9t~WyaeUKTOzQI0oViDEcx~j2xhd7AHapabaj40jelRMhczTFdt8EEpCwSL2tAgbYBpH8nA4uRlGdC676BqEYAvajxflalwnPgOy7iz46D4f0kd5Y5o5ArQrqnsTfZa2q-b59HCKuYN2yTD-G5SrEFCI9VUiT~E0AHClWHUHs8k9ay860w__",
@@ -26,11 +30,18 @@ export default function ProductDetails({ product }: any) {
   const handleChangeImg = (index: number) => {
     setImgIndex(index);
   };
+  const handleAddProduct = () => {
+    console.log(selectSize);
+    selectSize !== -1
+      ? handleAddToCart(product, selectSize)
+      : alert("Select size to Add Item to Cart");
+  };
   return (
-    <div className="flex gap-x-16 mb-16">
+    <div className="flex gap-x-16 mb-10">
       <div className="flex flex-col gap-y-5 mt-10">
         {imgs.map((img, index) => (
           <div
+            key={index}
             onClick={() => handleChangeImg(index)}
             className="w-[7rem] h-fit cursor-pointer"
           >
@@ -50,9 +61,9 @@ export default function ProductDetails({ product }: any) {
             src={imgs[imgIndex]}
           />
         </div>
-        <div className="font-Poppins font-medium mt-5">
+        {/* <div className="font-Poppins font-medium mt-10">
           {product.description}
-        </div>
+        </div> */}
       </div>
       <div className="flex flex-col gap-y-8 w-full">
         <div className="flex flex-col gap-y-6 w-full max-w-[30rem]">
@@ -111,25 +122,54 @@ export default function ProductDetails({ product }: any) {
               Select Plant Size
             </h3>
             <div className="flex gap-x-3">
-              <button
-                className={`p-[0.6rem] border rounded-xl ${sizeBtn.active} font-medium text-lg`}
-              >
-                Small
-              </button>
-              <button
-                className={`p-[0.6rem] border rounded-xl ${sizeBtn.disabled} font-medium text-lg`}
-              >
-                Medium
-              </button>
+              {product.size.map((size: any, index: number) => (
+                <button
+                  onClick={() => setSize(index)}
+                  key={index}
+                  className={`p-[0.6rem] border rounded-xl ${
+                    selectSize == index ? sizeBtn.active : sizeBtn.disabled
+                  } font-medium text-lg`}
+                >
+                  {size}
+                </button>
+              ))}
             </div>
           </div>
           <div className="flex flex-col gap-y-4">
             <Button
-              onClick={() => handleAddToCart(product.id)}
+              onClick={handleAddProduct}
               className="bg-[#9FDD79] text-white"
               text="Add To Cart"
             />
-            <Button className="bg-[#7AA262] text-[#F3F3F3]" text="Buy Now" />
+            <div>
+              <Button
+                onClick={() => {
+                  if (selectSize !== -1) {
+                    return navigate("/shipping-address", {
+                      state: {
+                        products: JSON.stringify([
+                          {
+                            ...product,
+                            selectedSize: product.size[selectSize],
+                            count: 1,
+                          },
+                        ]),
+                        priceSummary: JSON.stringify({
+                          totalPrice: product.price,
+                          totalItems: 0,
+                          shippingCharges: 5,
+                          couponDiscount: 0,
+                          totalAmount: 5 + product.price,
+                        }),
+                      },
+                    });
+                  }
+                  alert("select plant size");
+                }}
+                className="bg-[#7AA262] text-[#F3F3F3]"
+                text="Buy Now"
+              />
+            </div>
           </div>
         </div>
         <div className="flex gap-x-8">
@@ -142,10 +182,12 @@ export default function ProductDetails({ product }: any) {
             icon={<Replacement size={"40"} />}
           />
           <IconVthText title="Expert Guidance" icon={<Leaf size={"40"} />} />
-          <IconVthText
-            title="Pre Order Available"
-            icon={<PreOrder size={"40"} />}
-          />
+          {product.preOrderStatus && (
+            <IconVthText
+              title="Pre Order Available"
+              icon={<PreOrder size={"40"} />}
+            />
+          )}
         </div>
       </div>
     </div>

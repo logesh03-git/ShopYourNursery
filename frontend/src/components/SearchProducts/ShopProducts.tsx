@@ -49,12 +49,14 @@ export default function ShopProducts() {
           .filter((product) =>
             selectedFilter?.size.length === 0
               ? true
-              : selectedFilter?.size.includes(product.size)
+              : selectedFilter?.size.includes(product.size[0]) |
+                selectedFilter?.size.includes(product.size[1]) |
+                selectedFilter?.size.includes(product.size[2])
           )
           .filter((product) =>
             selectedFilter?.place.length === 0
               ? true
-              : selectedFilter?.place.includes(product.place.toLowerCase())
+              : selectedFilter?.place.includes(product.place)
           )
           .filter((product) =>
             selectedFilter?.rating.length === 0
@@ -102,7 +104,7 @@ export default function ShopProducts() {
       ? getFilteredProducts()
       : setProducts(plantProducts);
   }, dependencyArray);
-  console.log(selectedFilter);
+  // console.log(selectedFilter);c
   return (
     <div className="max-w-[1600px] w-full">
       <AdBanner />

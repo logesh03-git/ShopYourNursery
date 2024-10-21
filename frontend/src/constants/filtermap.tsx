@@ -16,7 +16,7 @@ export const price = {
 export const place = {
   title: "Indoor/Outdoor",
   type: "place",
-  value: ["Indoor", "Outdoor", "Pet Friendly"],
+  value: ["Indoor", "Outdoor", "PetFriendly"],
 };
 export const customerRating = {
   title: "Customer Rating",

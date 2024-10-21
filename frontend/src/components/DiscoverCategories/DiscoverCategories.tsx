@@ -1,19 +1,23 @@
 import Card from "./Card";
-import bonsai from "../../assets/discover/bonsai.png";
-import houseplant from "../../assets/discover/houseplant.png";
-import sympathy from "../../assets/discover/sympathy.png";
-import floorplant from "../../assets/discover/floorplant.png";
+// import bonsai from "../../assets/discover/bonsai.png";
+// import houseplant from "../../assets/discover/houseplant.png";
+// import sympathy from "../../assets/discover/sympathy.png";
+// import floorplant from "../../assets/discover/floorplant.png";
 import saccilent from "../../assets/discover/saccilent.png";
-import decorative from "../../assets/discover/decorative.png";
-
+// import decorative from "../../assets/discover/decorative.png";
+import trees from "../../assets/discover/trees.png";
+import perrenials from "../../assets/discover/perrenials.png";
+import ornamentals from "../../assets/discover/ornamentals.png";
+import annuals from "../../assets/discover/annuals.png";
+import tropicals from "../../assets/discover/tropicals.png";
 export default function DiscoverCategories() {
   const config = [
-    { id: 1, title: "Bonsai & Bamboo", img: bonsai },
-    { id: 2, title: "House Plants", img: houseplant },
-    { id: 3, title: "Sympathy Gift Plants", img: sympathy },
-    { id: 4, title: "Floor Plants", img: floorplant },
+    { id: 1, title: "Trees & Shrubs", img: trees },
+    { id: 2, title: "Ornamentals", img: ornamentals },
+    { id: 3, title: "Annuals", img: annuals },
+    { id: 4, title: "Tropicals", img: tropicals },
     { id: 5, title: "Succulents", img: saccilent },
-    { id: 6, title: "Decorative ", img: decorative },
+    { id: 6, title: "Perrenials", img: perrenials },
   ];
   return (
     <div className="flex flex-col gap-y-14 px-[4vw] my-10 sm:my-20 max-w-[1600px] w-full">

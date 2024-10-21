@@ -10,7 +10,7 @@ export default function Empty({ tag }: emptyPropsType) {
   return (
     <div className="max-w-[1600px] w-full flex flex-col items-center justify-center mt-8 mb-40">
       <div className="max-w-[45rem] px-[5vw] sm:px-0 flex flex-col items-center gap-y-5">
-        <div className="">
+        <div className="w-[12rem]">
           <img src={img} className="object-contain" />
         </div>
         <div className="flex flex-col gap-y-4 items-center justify-center ">

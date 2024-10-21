@@ -1,5 +1,6 @@
 import OrderRow from "./OrderRow";
 import securityIcon from "../../assets/icons/security.png";
+import { useNavigate } from "react-router-dom";
 type orderSummaryPropsType = {
   priceSummary: {
     shippingCharges: number;
@@ -8,8 +9,13 @@ type orderSummaryPropsType = {
     totalPrice: number;
     totalItems: number;
   };
+  products: any;
 };
-export default function OrderSummary({ priceSummary }: orderSummaryPropsType) {
+export default function OrderSummary({
+  priceSummary,
+  products,
+}: orderSummaryPropsType) {
+  const navigate = useNavigate();
   return (
     <div className="flex flex-col pt-8 px-10 bg-[#F5F5DC] my-10 max-w-[24rem] shadow-md">
       <h1 className="font-Poppins text-center text-xl font-medium">
@@ -41,7 +47,17 @@ export default function OrderSummary({ priceSummary }: orderSummaryPropsType) {
         />
       </div>
       <div className="mt-8">
-        <button className="bg-[#7AA262] w-full py-2 rounded-full text-[#F3F3F3] font-medium font-Poppins text-center">
+        <button
+          onClick={() =>
+            navigate("/shipping-address", {
+              state: {
+                products: JSON.stringify(products),
+                priceSummary: JSON.stringify(priceSummary),
+              },
+            })
+          }
+          className="bg-[#7AA262] w-full py-2 rounded-full text-[#F3F3F3] font-medium font-Poppins text-center"
+        >
           Proceed to Checkout
         </button>
       </div>

@@ -17,7 +17,10 @@ export default function OrderRow({
       <div className={`text-[#515151] font-Poppins ${titleStyles}`}>
         {title}
       </div>
-      <div className={`${priceStyles}`}>{price ? `$${price}` : qty}</div>
+      <div className={`${priceStyles}`}>
+        {price == 0 && `$${price}`}
+        {price ? `$${price}` : qty}
+      </div>
     </div>
   );
 }

@@ -1,5 +1,7 @@
 import EmptyFavorite from "../../components/Favorites/EmptyFavorite";
+import WishList from "../../components/WhishList/WishList";
 
 export default function FavoritePage() {
-  return <EmptyFavorite />;
+  const wishlist = [1];
+  return wishlist.length == 0 ? <EmptyFavorite /> : <WishList />;
 }

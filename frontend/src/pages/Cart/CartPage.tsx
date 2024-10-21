@@ -4,10 +4,10 @@ import { useCart } from "../../hooks/useCart";
 
 export default function CartPage() {
   const { cart } = useCart();
-  console.log(cart);
+  // console.log(cart);
   return (
     <div className="max-w-[1600px] w-full">
-      {cart.size === 0 ? <EmptyCart /> : <ProductsCart />}
+      {cart.length === 0 ? <EmptyCart /> : <ProductsCart />}
     </div>
   );
 }

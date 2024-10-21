@@ -19,7 +19,7 @@ export default function Carousel() {
             <img
               key={index}
               src={item.img}
-              className="rounded-xl w-full object-contain"
+              className="rounded-xl w-full h-fit object-contain"
             />
           ))}
         </CarouselMain>

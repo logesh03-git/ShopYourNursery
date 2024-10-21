@@ -10,6 +10,8 @@ import Layout from "./layout/Layout";
 import { Suspense } from "react";
 import ProductLanding from "./components/SearchProducts/ProductLanding";
 import Loading from "./components/Loading/Loading";
+import AddressPage from "./pages/Address/AddressPage";
+import OrderPlaced from "./components/OrderPlaced/OrderPlaced";
 export default function App() {
   return (
     <BrowserRouter>
@@ -20,6 +22,16 @@ export default function App() {
             <Layout>
               <Suspense fallback={<Loading />}>
                 <HomePage />
+              </Suspense>
+            </Layout>
+          }
+        />
+        <Route
+          path="/orderplaced"
+          element={
+            <Layout>
+              <Suspense fallback={<Loading />}>
+                <OrderPlaced />
               </Suspense>
             </Layout>
           }
@@ -50,6 +62,16 @@ export default function App() {
             <Layout>
               <Suspense fallback={<Loading />}>
                 <CartPage />
+              </Suspense>
+            </Layout>
+          }
+        />
+        <Route
+          path="/shipping-address"
+          element={
+            <Layout>
+              <Suspense fallback={<Loading />}>
+                <AddressPage />
               </Suspense>
             </Layout>
           }

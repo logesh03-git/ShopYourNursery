@@ -1,5 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
-import { plantProducts } from "../../constants/tempProducts";
+import { useCallback } from "react";
 import { useCart } from "../../hooks/useCart";
 import CartBox from "./CartBox";
 import OrderSummary from "./OrderSummary";
@@ -10,23 +9,11 @@ export type cartProductsType = productProps & cartItem;
 
 export default function ProductsCart() {
   const { cart } = useCart();
-  const [productsInCart, setProductsInCart] = useState<any[]>([]);
-  useEffect(() => {
-    const cartProducts: any = [];
-    cart.forEach((value, productId) => {
-      const product = plantProducts.find((item) => item.id === productId);
-      if (product) {
-        cartProducts.push({ ...product, ...value });
-      }
-    });
-    setProductsInCart(cartProducts);
-  }, [cart]);
-
   const calculateTotalPrices = useCallback(() => {
     const shippingCharges = 5;
     const couponDiscount = 0;
-    const totals = productsInCart.reduce(
-      (totals, product) => {
+    const totals = cart.reduce(
+      (totals: any, product: any) => {
         totals.totalPrice += product.price * product.count;
         totals.totalItems += product.count;
         return totals;
@@ -35,15 +22,12 @@ export default function ProductsCart() {
     );
     const totalAmount = shippingCharges + couponDiscount + totals.totalPrice;
     return { ...totals, shippingCharges, couponDiscount, totalAmount };
-  }, [productsInCart]);
+  }, [cart]);
   const priceSummary = calculateTotalPrices();
   return (
     <div className="flex gap-x-10 w-full justify-center items-start">
-      <CartBox
-        productsInCart={productsInCart}
-        setProductsInCart={setProductsInCart}
-      />
-      <OrderSummary priceSummary={priceSummary} />
+      <CartBox productsInCart={cart} />
+      <OrderSummary products={cart} priceSummary={priceSummary} />
     </div>
   );
 }

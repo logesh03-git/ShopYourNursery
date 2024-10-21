@@ -13,7 +13,7 @@ export default function BreadCrumb({ plantName }: propsType) {
       {pathnames.map((value, index) => {
         const routeTo = `/${pathnames.slice(0, index + 1).join("/")}`;
         const isLast = index === pathnames.length - 1;
-        console.log(routeTo);
+        // console.log(routeTo);
         const bread = breadCrumbMap.get(value);
         return (
           <li key={index} className="flex">

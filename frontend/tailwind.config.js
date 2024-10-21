@@ -5,6 +5,7 @@ export default {
     extend: {
       boxShadow: {
         shadowDown: "0px 4px 4px 0px rgba(0, 0, 0, 0.25)",
+        down: "0px 1.349px 1.349px 0px rgba(0, 0, 0, 0.25)",
       },
       fontFamily: {
         Inter: ["Inter", "sans-serif"],
