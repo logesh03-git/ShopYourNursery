@@ -12,6 +12,7 @@ import ProductLanding from "./components/SearchProducts/ProductLanding";
 import Loading from "./components/Loading/Loading";
 import AddressPage from "./pages/Address/AddressPage";
 import OrderPlaced from "./components/OrderPlaced/OrderPlaced";
+import About from "./pages/About/About";
 export default function App() {
   return (
     <BrowserRouter>
@@ -82,6 +83,16 @@ export default function App() {
             <Layout>
               <Suspense fallback={<Loading />}>
                 <FavoritePage />
+              </Suspense>
+            </Layout>
+          }
+        />
+        <Route
+          path="/about-us"
+          element={
+            <Layout>
+              <Suspense fallback={<Loading />}>
+                <About />
               </Suspense>
             </Layout>
           }
