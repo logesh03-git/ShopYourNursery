@@ -98,7 +98,7 @@ export default function App() {
             </Layout>
           }
         />
-        <Route
+        {/* <Route
           path="/plant-care"
           element={
             <Layout>
@@ -107,7 +107,7 @@ export default function App() {
               </Suspense>
             </Layout>
           }
-        />
+        /> */}
       </Routes>
     </BrowserRouter>
   );
