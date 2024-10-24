@@ -13,6 +13,7 @@ import Loading from "./components/Loading/Loading";
 import AddressPage from "./pages/Address/AddressPage";
 import OrderPlaced from "./components/OrderPlaced/OrderPlaced";
 import About from "./pages/About/About";
+import PlantCareProduct from "./components/PlantCare/PlantCareProduct";
 export default function App() {
   return (
     <BrowserRouter>
@@ -93,6 +94,16 @@ export default function App() {
             <Layout>
               <Suspense fallback={<Loading />}>
                 <About />
+              </Suspense>
+            </Layout>
+          }
+        />
+        <Route
+          path="/plant-care"
+          element={
+            <Layout>
+              <Suspense fallback={<Loading />}>
+                <PlantCareProduct/>
               </Suspense>
             </Layout>
           }
