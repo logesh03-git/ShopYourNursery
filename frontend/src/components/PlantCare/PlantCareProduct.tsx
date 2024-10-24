@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import CareCard from "./CareCard";
-import bulbIcon from "../../assets/care/lightbulb2.png";
+import bulbIcon from "../../assets/care/lightbulb.png";
 
 const PlantCareProduct = () => {
   const navigate = useNavigate();
