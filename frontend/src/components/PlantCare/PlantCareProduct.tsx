@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import CareCard from "./CareCard";
-import bulbIcon from "../../assets/care/lightbulb.png";
+// import bulbIcon from "../../assets/care/lightbulb.png";
 
 const PlantCareProduct = () => {
   const navigate = useNavigate();
@@ -67,7 +67,7 @@ const PlantCareProduct = () => {
         style={{ borderRadius: "15px" }}
       >
         {/* Bulb Icon */}
-        <img src={bulbIcon} alt="Bulb Icon" className="w-8 h-8" />
+        {/* <img src={bulbIcon} alt="Bulb Icon" className="w-8 h-8" /> */}
 
         {/* Text Content */}
         <div>
