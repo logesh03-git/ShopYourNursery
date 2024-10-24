@@ -1,5 +1,3 @@
-
-
 import { useNavigate } from 'react-router-dom';
 import CareCard from './CareCard';
 import bulbIcon from '../../assets/care/lightbulb_2.png';
