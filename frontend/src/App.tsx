@@ -15,6 +15,8 @@ import OrderPlaced from "./components/OrderPlaced/OrderPlaced";
 import About from "./pages/About/About";
 import PlantCareProduct from "./components/PlantCare/PlantCareProduct";
 import Blog from "./components/Blog/Blog";
+import AccountPage from "./pages/Account/AccountPage";
+import EditProfile from "./components/Account/pages/EditProfile";
 export default function App() {
   return (
     <BrowserRouter>
@@ -119,6 +121,26 @@ export default function App() {
             </Layout>
           }
         />
+        <Route
+          path="/account"
+          element={
+            <Layout>
+              <Suspense fallback={<Loading />}>
+                <AccountPage />
+              </Suspense>
+            </Layout>
+          }
+        >
+          <Route index element={<EditProfile />} />
+          <Route path="edit-profile" element={<EditProfile />} />
+          <Route path="orders" element={<div>orders page</div>} />
+          <Route path="your-cart" element={<div>cart page</div>} />
+          <Route path="wishlist" element={<div>wishlist page</div>} />
+          <Route path="address-book" element={<div>address page</div>} />
+          <Route path="help" element={<div>help page</div>} />
+          <Route path="faqs" element={<div>faqs page</div>} />
+          <Route path="terms" element={<div>terms page</div>} />
+        </Route>
       </Routes>
     </BrowserRouter>
   );

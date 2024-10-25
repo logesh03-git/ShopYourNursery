@@ -4,6 +4,7 @@ import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import { NavLink } from "react-router-dom";
 export default function Header() {
   return (
@@ -49,7 +50,11 @@ export default function Header() {
         </div>
         <div className="items-center justify-between gap-x-3 hidden sm:flex">
           <div>
-            <AccountCircleOutlinedIcon />
+            <NavLink to="/account" className={``}>
+              {({ isActive }) =>
+                isActive ? <AccountCircleIcon /> : <AccountCircleOutlinedIcon />
+              }
+            </NavLink>
           </div>
           <div>
             <NavLink to="/favorite" className={``}>
