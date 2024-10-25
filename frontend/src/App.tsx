@@ -14,6 +14,7 @@ import AddressPage from "./pages/Address/AddressPage";
 import OrderPlaced from "./components/OrderPlaced/OrderPlaced";
 import About from "./pages/About/About";
 import PlantCareProduct from "./components/PlantCare/PlantCareProduct";
+import Blog from "./components/Blog/Blog";
 export default function App() {
   return (
     <BrowserRouter>
@@ -103,7 +104,17 @@ export default function App() {
           element={
             <Layout>
               <Suspense fallback={<Loading />}>
-                <PlantCareProduct/>
+                <PlantCareProduct />
+              </Suspense>
+            </Layout>
+          }
+        />
+        <Route
+          path="/blog"
+          element={
+            <Layout>
+              <Suspense fallback={<Loading />}>
+                <Blog />
               </Suspense>
             </Layout>
           }
