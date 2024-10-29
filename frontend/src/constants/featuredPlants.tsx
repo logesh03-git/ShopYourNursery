@@ -1,4 +1,4 @@
-import emerald from "../assets/featured/emerald/emerald.png";
+import emerald from "../assets/featured/emerald.png";
 import yellowlilly from "../assets/featured/yellowlilly.png";
 import hydragea from "../assets/featured/hydragea.png";
 import meyer from "../assets/featured/lemon.png";
