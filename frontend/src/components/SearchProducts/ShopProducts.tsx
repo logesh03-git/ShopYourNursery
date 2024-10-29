@@ -108,7 +108,7 @@ export default function ShopProducts() {
   return (
     <div className="max-w-[1600px] w-full">
       <AdBanner />
-      <div className="px-[4vw] flex gap-x-8">
+      <div className="px-[4vw] flex gap-x-14 ">
         <Filter
           filterMap={filterMap}
           handleFilter={handleFilter}

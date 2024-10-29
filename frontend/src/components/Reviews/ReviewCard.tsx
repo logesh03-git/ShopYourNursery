@@ -14,7 +14,7 @@ export default function ReviewCard({ card }: ReviewPropsType) {
         <div className="rounded-full shrink-0 size-10 bg-slate-400 overflow-hidden">
           <img
             src={
-              "https://s3-alpha-sig.figma.com/img/8adf/8bc4/ae9ec24ebb8e04daeece801ba0614e96?Expires=1730073600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=JXD8YQYjZy~taAQU6TkEWWXuZrvXbr6cKxz7OVhWmeDmcuM7lI9xBmTi-Sx7ZuUYAk5-CqxCVjzl3s~JM5ntVVGEYDo3Rr0Zz3kkQN7~~3DmtvajQNOydHMVX0k43mxiQh6m-l3sqRJtnwdVyMKbADOVE6H8qXWCj3vVuND5mrudzOB5fmhApPQs-LQ1FFtCKZBHESONAlqpbTYtUoibubmBu8UA0zfH9iILYrwfHzZTn1EPE~K8utmYM-4RdilrY5vRUzlRWDeV9nMRfn-L4O4o3tzGewSRTnDdPJqDPN-ow9JSLttM1SW6IJKukFgzAPi8a~7nuBJcOd3~zWISOQ__"
+              "https://s3-alpha-sig.figma.com/img/bbc8/7665/fc96fdb4ad5809238807b7e4bdb0657a?Expires=1731283200&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=CWR0Y1l8RLlESIHUvh1cW74yKUYqUbY8MotHSlAdUPPhbKIoJDKyobi13ttldlsPIM3NSmTaH8wm7WX~dlap5fVbUk2FZOodFO0YVJD39Prf0pDZ9-CfDM-cFq8tujWE5h3tMto6ZNGjz-DIDDgVVgl~R7ny-QPG8R-EnFvQo4oOG2CguFD-A0ekZfrK1CvnKqNia~bQKaIeuKm05cgi1JomztXqvHxDRvo~cwqTXEZBM0WCxW1sTugAi-M6Lvf0afUT5Jv4FbXlp4ynJXqWxYenaEni3QiMB082MmhsqpjsDWbAzGHg4l8sisLOuptu~l4ZDd8Y~KlvXF44~Nwhzg__"
             }
           />
         </div>

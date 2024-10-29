@@ -5,6 +5,7 @@ import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import { iconMap } from "../../constants/iconMapping";
 import { useContext } from "react";
 import { WishListContext } from "../../contexts/WishListProvider";
+import { useCart } from "../../hooks/useCart";
 export default function ProductCard({ product }: any) {
   const { wishList, handleFavorite } = useContext(WishListContext);
   const navigate = useNavigate();
@@ -14,6 +15,10 @@ export default function ProductCard({ product }: any) {
 
   const Icon = iconMap.get(product.place)?.icon;
   const Name = iconMap.get(product.place)?.name;
+  const { handleAddToCart } = useCart();
+  const handleAddToCartRandom = () => {
+    handleAddToCart(product, 0);
+  };
   return (
     <div className="shrink-0 flex flex-col gap-y-4 justify-start relative cursor-pointer max-w-[11rem] w-full border-none overflow-hidden border-black">
       <div className="flex h-[14rem] w-[11rem] rounded-[0.9375rem] bg-slate-200 relative over">
@@ -26,7 +31,10 @@ export default function ProductCard({ product }: any) {
           }
           className="object-cover rounded-[0.9375rem] h-full w-full"
         />
-        <div className="rounded-full absolute bottom-2 right-2 bg-[rgba(255,255,255,0.60)] hover:bg-white text-xs shrink-0 p-2">
+        <div
+          onClick={handleAddToCartRandom}
+          className="rounded-full absolute bottom-2 right-2 bg-[rgba(255,255,255,0.60)] hover:bg-white text-xs shrink-0 p-2"
+        >
           <ShoppingCartOutlinedIcon fontSize="small" />
         </div>
       </div>

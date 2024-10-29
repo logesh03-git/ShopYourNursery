@@ -17,7 +17,7 @@ export default function Filter({
     );
   };
   return (
-    <div className="bg-[#F3F3F3] border border-[#D7D7D7] rounded-[0.625rem] w-[22rem] h-fit pb-10 flex flex-col gap-y-5 shrink-0 ">
+    <div className="bg-[#F3F3F3] border border-[#D7D7D7] rounded-[0.625rem] w-[22rem] h-fit pb-10 flex flex-col gap-y-5 shrink-0">
       <div className="flex justify-between w-full items-center px-5 mt-12 mb-10">
         <h2 className="font-Poppins font-semibold text-xl">Filter</h2>
         <button

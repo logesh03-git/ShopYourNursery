@@ -1,6 +1,5 @@
 import BlackDot from "../../svgIcons/BlackDot";
 import Star from "../../svgIcons/Star";
-import pet from "../../assets/producticons/pet.png";
 import waterdrop from "../../assets/producticons/water.png";
 import sun from "../../assets/producticons/sun.png";
 import Button from "./Button";
@@ -14,18 +13,15 @@ import { useCart } from "../../hooks/useCart";
 import { useNavigate } from "react-router-dom";
 import Favorite from "../../svgIcons/Favorite";
 import { WishListContext } from "../../contexts/WishListProvider";
+import { iconMap } from "../../constants/iconMapping";
 export default function ProductDetails({ product }: any) {
   const { wishList, handleFavorite } = useContext(WishListContext);
   const navigate = useNavigate();
   const { handleAddToCart } = useCart();
   const [imgIndex, setImgIndex] = useState<number>(0);
   const [selectSize, setSize] = useState(-1);
-  const imgs = [
-    product.img,
-    "https://s3-alpha-sig.figma.com/img/3665/6b0c/6916bf87e9e53802eeaf0c523ec63bb1?Expires=1730073600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=Y04suTkeBCQJEgXC3iPQwB2CcH-fTUl5wBnF~DQH0TWkl~a-bnIh0DECApTWmh3vrmvmM7fyo4TnXDlPPSOCEv7Ya9TCqiC6tAKza6Xz5POvyMCjS7U4tFeM4SyKMF9MZOXl-SpEy7zEu-vJyHE4-h7JwBdQlvlJ1wgkzNfngNZk237JWavKFGeGjoazoIrnf48zmks0d4UqW-20lHra9PI6IF9A8HXVc5bQy2MYBY5cK4pAQpWz~kKaHQGfTQboshM4NgLZyiOzRIGKi93Oa3MdArkF7oHwbgvOGaJRhge0M6u0seid1k5htK54JvQDqlL5KKDRuMpFJgPm-XBK7A__",
-    "https://s3-alpha-sig.figma.com/img/0ba1/76a6/24740c8e3cfac0f483ee29483b92df7b?Expires=1730073600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=BY3FtYphCoQaUtIY3oOW-Pmk7D3MI8WxJxiyHXlpo6YQmTyruclqdFXN8YdYKkOZ7mqLZvRFoqOfq5ggFlMjYCOBx-eU6D9DU9Atl6uO~refQI6PbGlIZPMYYRnbnzHjS9hY6y8T3vFNtZzxSDwwdSYhjqB9sE~HhymIsMv~xok4IfQVUIDfjbanKWLgDxKte23zymtN~QhCcqmUMhKvSeVVDGS1Dsj5rXIbnCqf~0Ph1L7Wg9McMhD2Dng6Js9c3GmH4bU9dUVHKBA3IUQKO~rjuravNZI3L7aOobQZv-Gi8GrqQothS60isl2QrV8EZEN01~9gAlzm5CMXgGaUWw__",
-    "https://s3-alpha-sig.figma.com/img/e284/a807/6bfcf242a851b0ced5b8f7c546d691c0?Expires=1730073600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=CFgoDfI~q7VuMFyl~5qzdETk09XvSEn8Q6X3C1VJgJ5PMpkYKrAVwMaspj5pPBTuWUqLcHlpPZuTUjfvCZlDAgFqF6QRkJlNUQvbLensqU2cy4TlH138NI4ihTNWcu1Zl20W~daNXE3pW2~jSDE3HJaz8vuyQu-aAis-9t~WyaeUKTOzQI0oViDEcx~j2xhd7AHapabaj40jelRMhczTFdt8EEpCwSL2tAgbYBpH8nA4uRlGdC676BqEYAvajxflalwnPgOy7iz46D4f0kd5Y5o5ArQrqnsTfZa2q-b59HCKuYN2yTD-G5SrEFCI9VUiT~E0AHClWHUHs8k9ay860w__",
-  ];
+  const pImgs = product?.imgs?.length ? product.imgs : [];
+  const imgs = [product.img, ...pImgs];
   const sizeBtn = {
     active: "border-[#1F4508] text-[#1F4508] ",
     disabled: "border-[#C7C8C6] text-[#BEC0BD]",
@@ -34,11 +30,12 @@ export default function ProductDetails({ product }: any) {
     setImgIndex(index);
   };
   const handleAddProduct = () => {
-    console.log(selectSize);
     selectSize !== -1
       ? handleAddToCart(product, selectSize)
       : alert("Select size to Add Item to Cart");
   };
+  const Icon = iconMap.get(product.place).icon;
+  const IconName = iconMap.get(product.place).name;
   return (
     <div className="flex gap-x-16 mb-10">
       <div className="flex flex-col gap-y-5 mt-10">
@@ -60,7 +57,7 @@ export default function ProductDetails({ product }: any) {
       <div className="max-w-[24rem] w-full">
         <div className="w-[24rem] max-h-[32rem] h-fit bg-slate-200  rounded-[0.9375rem] relative">
           <img
-            className="rounded-[0.9375rem] object-contain"
+            className="rounded-[0.9375rem] object-contain w-full"
             src={imgs[imgIndex]}
           />
           <div
@@ -94,7 +91,9 @@ export default function ProductDetails({ product }: any) {
           <div className="flex gap-x-4 items-center font-Poppins">
             <span className="text-[#E11818] text-xl">
               $&nbsp;
-              <span className="line-through  text-xl">180.90</span>
+              <span className="line-through  text-xl">
+                {product.markedPrice}
+              </span>
             </span>
             <span className="text-xl">
               $&nbsp;
@@ -105,10 +104,8 @@ export default function ProductDetails({ product }: any) {
             <li className="flex gap-x-6 items-center ">
               <BlackDot />{" "}
               <div className="flex gap-x-2 items-center">
-                <img src={pet} className="w-5 h-5" />
-                <span className="font-medium font-Poppins">
-                  {product.place}
-                </span>
+                <Icon size={"22"} />
+                <span className="font-medium font-Poppins">{IconName}</span>
               </div>
             </li>
             <li className="flex gap-x-6 items-center ">

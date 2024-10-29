@@ -9,6 +9,7 @@ export type CartContextType = {
   setCart: any;
   handleAddToCart: any;
   handleDeleteFromCart: any;
+  handleDeleteProduct: any;
 };
 type CartProviderProps = {
   children: React.ReactNode;
@@ -57,10 +58,23 @@ export default function CartProvider({ children }: CartProviderProps) {
       alert("Item deleted successfully...");
     }
   };
+  const handleDeleteProduct = (productId: number, selectedSize: string) => {
+    const updatedProducts = cart.filter(
+      (product: any) =>
+        !(product.id == productId && product.selectedSize == selectedSize)
+    );
+    setCart(updatedProducts);
+  };
 
   return (
     <CartContext.Provider
-      value={{ cart, setCart, handleAddToCart, handleDeleteFromCart }}
+      value={{
+        cart,
+        setCart,
+        handleAddToCart,
+        handleDeleteFromCart,
+        handleDeleteProduct,
+      }}
     >
       {children}
     </CartContext.Provider>
