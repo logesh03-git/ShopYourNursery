@@ -11,8 +11,8 @@ import Rule from "../../svgIcons/Rule";
 export default function SideBar() {
   const config = [
     { id: 1, name: "Orders", link: "orders", icon: <Order size={22} /> },
-    { id: 2, name: "Your Cart", link: "your-cart", icon: <Cart size={20} /> },
-    { id: 3, name: "Wishlist", link: "wishlist", icon: <Favorite size={20} /> },
+    // { id: 2, name: "Your Cart", link: "your-cart", icon: <Cart size={20} /> },
+    // { id: 3, name: "Wishlist", link: "wishlist", icon: <Favorite size={20} /> },
     {
       id: 4,
       name: "Address Book",

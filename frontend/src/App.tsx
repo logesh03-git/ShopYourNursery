@@ -20,6 +20,11 @@ import EditProfile from "./components/Account/pages/EditProfile";
 import PlantCareHome from "./components/PlantCare/PlantHome/PlantCareHome";
 import Orders from "./components/Account/pages/Orders/Orders";
 import Contact from "./components/Contact/Contact";
+import OrderDetails from "./components/OrderDetail/OrderDetails";
+import Faq from "./components/Account/pages/FAQ/Faq";
+import { Terms } from "./components/Account/pages/Terms/Terms";
+import { Help } from "./components/Account/pages/Help/Help";
+import Address from "./pages/Address/Address";
 export default function App() {
   return (
     <BrowserRouter>
@@ -157,12 +162,13 @@ export default function App() {
           <Route index element={<EditProfile />} />
           <Route path="edit-profile" element={<EditProfile />} />
           <Route path="orders" element={<Orders />} />
+          <Route path="orders/details" element={<OrderDetails />} />
           <Route path="your-cart" element={<div>cart page</div>} />
           <Route path="wishlist" element={<div>wishlist page</div>} />
-          <Route path="address-book" element={<div>address page</div>} />
-          <Route path="help" element={<div>help page</div>} />
-          <Route path="faqs" element={<div>faqs page</div>} />
-          <Route path="terms" element={<div>terms page</div>} />
+          <Route path="address-book" element={<Address flag={true} />} />
+          <Route path="help" element={<Help />} />
+          <Route path="faqs" element={<Faq />} />
+          <Route path="terms" element={<Terms />} />
         </Route>
       </Routes>
     </BrowserRouter>
