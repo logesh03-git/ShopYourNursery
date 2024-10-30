@@ -1,9 +1,12 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate,useLocation } from "react-router-dom";
 import CareCard from "./CareCard";
 // import bulbIcon from "../../assets/care/lightbulb.png";
 
 const PlantCareProduct = () => {
   const navigate = useNavigate();
+
+  const location = useLocation();
+  const { img,title } = location.state;
 
   return (
     <div className="flex flex-col items-center justify-center p-5">
@@ -20,12 +23,12 @@ const PlantCareProduct = () => {
       </div>
 
       <img
-        src="https://cdn.pixabay.com/photo/2022/08/05/18/50/houseplant-7367379_1280.jpg"
+        src={img}
         alt="Plant"
         className="rounded-lg w-[300px] h-[300px] object-cover"
       />
-      <h1 className="text-[#447128] font-poppins font-bold text-2xl mb-8">
-        Fiddle Leaf Fig (Ficus Lyrata)
+      <h1 className="text-[#447128] font-poppins font-bold text-2xl mb-8 mt-10">
+       {title}
       </h1>
 
       {/* Overview Heading */}

@@ -17,6 +17,7 @@ import PlantCareProduct from "./components/PlantCare/PlantCareProduct";
 import Blog from "./components/Blog/Blog";
 import AccountPage from "./pages/Account/AccountPage";
 import EditProfile from "./components/Account/pages/EditProfile";
+import PlantCareHome from "./components/PlantCare/PlantHome/PlantCareHome";
 export default function App() {
   return (
     <BrowserRouter>
@@ -106,7 +107,17 @@ export default function App() {
           element={
             <Layout>
               <Suspense fallback={<Loading />}>
-                <PlantCareProduct />
+              <PlantCareHome/>
+              </Suspense>
+            </Layout>
+          }
+        />
+        <Route
+          path="/plant-care/details"
+          element={
+            <Layout>
+              <Suspense fallback={<Loading />}>
+              <PlantCareProduct/>
               </Suspense>
             </Layout>
           }
