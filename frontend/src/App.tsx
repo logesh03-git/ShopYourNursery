@@ -18,6 +18,7 @@ import Blog from "./components/Blog/Blog";
 import AccountPage from "./pages/Account/AccountPage";
 import EditProfile from "./components/Account/pages/EditProfile";
 import PlantCareHome from "./components/PlantCare/PlantHome/PlantCareHome";
+import Orders from "./components/Account/pages/Orders/Orders";
 export default function App() {
   return (
     <BrowserRouter>
@@ -107,7 +108,7 @@ export default function App() {
           element={
             <Layout>
               <Suspense fallback={<Loading />}>
-              <PlantCareHome/>
+                <PlantCareHome />
               </Suspense>
             </Layout>
           }
@@ -117,7 +118,7 @@ export default function App() {
           element={
             <Layout>
               <Suspense fallback={<Loading />}>
-              <PlantCareProduct/>
+                <PlantCareProduct />
               </Suspense>
             </Layout>
           }
@@ -144,7 +145,7 @@ export default function App() {
         >
           <Route index element={<EditProfile />} />
           <Route path="edit-profile" element={<EditProfile />} />
-          <Route path="orders" element={<div>orders page</div>} />
+          <Route path="orders" element={<Orders />} />
           <Route path="your-cart" element={<div>cart page</div>} />
           <Route path="wishlist" element={<div>wishlist page</div>} />
           <Route path="address-book" element={<div>address page</div>} />
