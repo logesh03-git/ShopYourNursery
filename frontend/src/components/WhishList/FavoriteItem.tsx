@@ -6,7 +6,7 @@ export default function FavoriteItem({ product, handleDelete }: any) {
     navigate(`/shop-plants/${product.id}`);
   };
   return (
-    <div className="gap-x-10 flex justify-start items-center border-none">
+    <div className="gap-x-10 flex justify-start items-center border-none cursor-pointer">
       <div
         onClick={handleNavigate}
         className="h-[10rem] w-[8rem] rounded-xl bg-slate-200"

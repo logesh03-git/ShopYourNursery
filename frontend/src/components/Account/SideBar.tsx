@@ -57,7 +57,11 @@ export default function SideBar() {
         {config.map((item) => (
           <NavLink
             to={item?.link}
-            className="p-2 flex gap-x-4 justify-between items-center"
+            className={({ isActive }) =>
+              `p-[0.6rem] flex gap-x-4 justify-between items-center  rounded-[0.9375rem] ${
+                isActive && "bg-[#ddf2d0]"
+              } hover:bg-[#ddf2d0]`
+            }
           >
             <div className="flex gap-x-3 items-center">
               {item?.icon}
