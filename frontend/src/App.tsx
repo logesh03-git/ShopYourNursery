@@ -19,6 +19,7 @@ import AccountPage from "./pages/Account/AccountPage";
 import EditProfile from "./components/Account/pages/EditProfile";
 import PlantCareHome from "./components/PlantCare/PlantHome/PlantCareHome";
 import Orders from "./components/Account/pages/Orders/Orders";
+import Contact from "./components/Contact/Contact";
 export default function App() {
   return (
     <BrowserRouter>
@@ -89,6 +90,16 @@ export default function App() {
             <Layout>
               <Suspense fallback={<Loading />}>
                 <FavoritePage />
+              </Suspense>
+            </Layout>
+          }
+        />
+        <Route
+          path="/contact-us"
+          element={
+            <Layout>
+              <Suspense fallback={<Loading />}>
+                <Contact />
               </Suspense>
             </Layout>
           }

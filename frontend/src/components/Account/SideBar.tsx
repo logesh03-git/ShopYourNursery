@@ -34,7 +34,7 @@ export default function SideBar() {
     },
   ];
   return (
-    <div className="w-[25rem] bg-[#F5F5F5] h-fit px-6 py-7 rounded-[0.9375rem]">
+    <div className="w-[25rem] flex-shrink-0 bg-[#F5F5F5] h-fit px-6 py-7 rounded-[0.9375rem]">
       <div className="flex flex-col gap-y-[0.3rem]">
         <div className="flex justify-between gap-x-4 items-center">
           <h2 className="font-Poppins font-medium">Cameron Williamson</h2>
