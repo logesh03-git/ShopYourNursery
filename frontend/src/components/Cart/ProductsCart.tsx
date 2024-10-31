@@ -1,21 +1,22 @@
 import { useCallback } from "react";
-import { useCart } from "../../hooks/useCart";
 import CartBox from "./CartBox";
 import OrderSummary from "./OrderSummary";
 import { productProps } from "../../constants/products";
 import { cartItem } from "../../contexts/CartProvider";
+import PreOrderCart from "./PreOrderCart";
 
 export type cartProductsType = productProps & cartItem;
 
-export default function ProductsCart() {
-  const { cart } = useCart();
+export default function ProductsCart({ cart, flag }: any) {
   const calculateTotalPrices = useCallback(() => {
     const shippingCharges = 5;
     const couponDiscount = 0;
     const totals = cart.reduce(
       (totals: any, product: any) => {
-        totals.totalPrice += product.price * product.count;
-        totals.totalItems += product.count;
+        totals.totalPrice = parseFloat(
+          (product.price * product.count).toFixed(2)
+        );
+        totals.totalItems = product.count;
         return totals;
       },
       { totalPrice: 0, totalItems: 0 } // Initial values
@@ -26,8 +27,18 @@ export default function ProductsCart() {
   const priceSummary = calculateTotalPrices();
   return (
     <div className="flex gap-x-10 w-full justify-center items-start">
-      <CartBox productsInCart={cart} />
-      <OrderSummary products={cart} priceSummary={priceSummary} />
+      {flag === "preorder" ? (
+        <PreOrderCart productsInCart={cart} />
+      ) : (
+        <CartBox productsInCart={cart} />
+      )}
+      <OrderSummary
+        text={
+          flag === "preorder" ? "Proceed to Pre-order" : "Proceed to Checkout"
+        }
+        products={cart}
+        priceSummary={priceSummary}
+      />
     </div>
   );
 }

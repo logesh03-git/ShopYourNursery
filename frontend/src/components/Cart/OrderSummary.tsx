@@ -10,8 +10,10 @@ type orderSummaryPropsType = {
     totalItems: number;
   };
   products: any;
+  text: string;
 };
 export default function OrderSummary({
+  text,
   priceSummary,
   products,
 }: orderSummaryPropsType) {
@@ -58,7 +60,7 @@ export default function OrderSummary({
           }
           className="bg-[#7AA262] w-full py-2 rounded-full text-[#F3F3F3] font-medium font-Poppins text-center"
         >
-          Proceed to Checkout
+          {text}
         </button>
       </div>
       <div className="mt-20 mb-8 flex gap-x-2 items-center justify-center">

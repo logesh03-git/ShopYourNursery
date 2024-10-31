@@ -14,10 +14,15 @@ import { useNavigate } from "react-router-dom";
 import Favorite from "../../svgIcons/Favorite";
 import { WishListContext } from "../../contexts/WishListProvider";
 import { iconMap } from "../../constants/iconMapping";
+import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
+import PreOrderModal from "../Modals/PreOrderModal";
+import { usePreOrder } from "../../hooks/usePreOrder";
 export default function ProductDetails({ product }: any) {
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const { wishList, handleFavorite } = useContext(WishListContext);
   const navigate = useNavigate();
   const { handleAddToCart } = useCart();
+  const { handleAddToPreOrderCart } = usePreOrder();
   const [imgIndex, setImgIndex] = useState<number>(0);
   const [selectSize, setSize] = useState(-1);
   const pImgs = product?.imgs?.length ? product.imgs : [];
@@ -29,10 +34,35 @@ export default function ProductDetails({ product }: any) {
   const handleChangeImg = (index: number) => {
     setImgIndex(index);
   };
-  const handleAddProduct = () => {
+  const handleAddProduct = (flag: string) => {
     selectSize !== -1
-      ? handleAddToCart(product, selectSize)
+      ? flag == "cart"
+        ? handleAddToCart(product, selectSize)
+        : handleAddToPreOrderCart(product, selectSize)
       : alert("Select size to Add Item to Cart");
+  };
+  const handleBuy = () => {
+    if (selectSize !== -1) {
+      return navigate("/shipping-address", {
+        state: {
+          products: JSON.stringify([
+            {
+              ...product,
+              selectedSize: product.size[selectSize],
+              count: 1,
+            },
+          ]),
+          priceSummary: JSON.stringify({
+            totalPrice: product.price,
+            totalItems: 0,
+            shippingCharges: 5,
+            couponDiscount: 0,
+            totalAmount: 5 + product.price,
+          }),
+        },
+      });
+    }
+    alert("select plant size");
   };
   const Icon = iconMap.get(product.place).icon;
   const IconName = iconMap.get(product.place).name;
@@ -147,38 +177,40 @@ export default function ProductDetails({ product }: any) {
           </div>
           <div className="flex flex-col gap-y-4">
             <Button
-              onClick={handleAddProduct}
+              onClick={() => handleAddProduct("cart")}
               className="bg-[#9FDD79] text-white"
               text="Add To Cart"
             />
-            <div>
+            {!product.preOrderStatus ? (
               <Button
-                onClick={() => {
-                  if (selectSize !== -1) {
-                    return navigate("/shipping-address", {
-                      state: {
-                        products: JSON.stringify([
-                          {
-                            ...product,
-                            selectedSize: product.size[selectSize],
-                            count: 1,
-                          },
-                        ]),
-                        priceSummary: JSON.stringify({
-                          totalPrice: product.price,
-                          totalItems: 0,
-                          shippingCharges: 5,
-                          couponDiscount: 0,
-                          totalAmount: 5 + product.price,
-                        }),
-                      },
-                    });
-                  }
-                  alert("select plant size");
-                }}
+                onClick={handleBuy}
                 className="bg-[#7AA262] text-[#F3F3F3]"
                 text="Buy Now"
               />
+            ) : (
+              <div
+                onClick={() => setIsModalOpen(true)}
+                className="flex h-[3.3rem] items-center overflow-hidden"
+              >
+                <div
+                  className={`w-full h-full text-center font-Poppins cursor-pointer font-bold text-lg py-3 px-6 pl-20 rounded-l-full bg-[#7AA262] text-[#F3F3F3] flex items-center justify-center`}
+                >
+                  Pre Order
+                </div>
+                <button className="w-[5rem] h-full text-center font-Poppins cursor-pointer font-bold text-xl py-3 px-6 rounded-r-full bg-[#7AA262] text-[#F3F3F3] border-l border-l-white flex justify-center items-center hover:bg-[#7AA262]/[0.9]">
+                  <ArrowDropDownIcon fontSize="large" />
+                </button>
+              </div>
+            )}
+
+            <div>
+              {isModalOpen && (
+                <PreOrderModal
+                  onClose={() => setIsModalOpen(false)}
+                  handleBuy={handleBuy}
+                  handleAddToPreOrder={() => handleAddProduct("preOrderCart")}
+                />
+              )}
             </div>
           </div>
         </div>
