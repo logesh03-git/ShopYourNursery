@@ -1,6 +1,6 @@
 import { useState } from "react";
 import FilterCard from "./FilterCard";
-import { filterTypes } from "../../constants/filtermap";
+// import { filterTypes } from "../../constants/filtermap";
 export default function Filter({
   selectedFilter,
   filterMap,
@@ -8,7 +8,7 @@ export default function Filter({
   handleClear,
 }: any) {
   // const [isRotated, setIsRotated] = useState<Boolean>(false);
-  const [activeFilter, setActiveFilter] = useState<string[]>(filterTypes);
+  const [activeFilter, setActiveFilter] = useState<string[]>([]);
   const handleActiveFilter = (type: string) => {
     setActiveFilter((prev) =>
       prev.includes(type)

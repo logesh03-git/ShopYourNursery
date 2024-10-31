@@ -165,7 +165,14 @@ export default function App() {
           <Route path="orders/details" element={<OrderDetails />} />
           <Route path="your-cart" element={<div>cart page</div>} />
           <Route path="wishlist" element={<div>wishlist page</div>} />
-          <Route path="address-book" element={<Address flag={true} />} />
+          <Route
+            path="address-book"
+            element={
+              <div className="flex justify-center items-center">
+                <Address flag={true} />
+              </div>
+            }
+          />
           <Route path="help" element={<Help />} />
           <Route path="faqs" element={<Faq />} />
           <Route path="terms" element={<Terms />} />

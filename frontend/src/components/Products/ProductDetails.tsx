@@ -96,7 +96,7 @@ export default function ProductDetails({ product }: any) {
           >
             <Favorite
               size={22}
-              outlineColor="red"
+              outlineColor="black"
               fill={wishList.includes(product.id) ? "red" : ""}
             />
           </div>

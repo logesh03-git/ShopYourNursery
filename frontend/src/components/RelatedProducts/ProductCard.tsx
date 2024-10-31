@@ -49,7 +49,7 @@ export default function ProductCard({ product }: any) {
           <div onClick={() => handleFavorite(product.id)} className="w-fit">
             <Favorite
               size={15}
-              outlineColor="red"
+              outlineColor="black"
               fill={wishList.includes(product.id) ? "red" : ""}
             />
           </div>

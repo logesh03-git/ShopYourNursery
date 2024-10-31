@@ -14,22 +14,24 @@ export default function Header() {
       </NavLink>
       <ul className="flex list-none  gap-x-8 flex-wrap justify-center items-center gap-y-2 font-medium border-none border-black">
         <li>
-          <NavLink to="/">Home</NavLink>
+          <NavLink to="/" className={({ isActive }) => `${isActive && "text-[#7AA262] font-semibold text-lg"}`}>
+            Home
+          </NavLink>
         </li>
         <li>
-          <NavLink to="/shop-plants">Shop Plants</NavLink>
+          <NavLink to="/shop-plants" className={({ isActive }) => `${isActive && "text-[#7AA262] font-semibold text-lg"}`}>Shop Plants</NavLink>
         </li>
         <li>
-          <NavLink to="/plant-care">Plant Care</NavLink>
+          <NavLink to="/plant-care" className={({ isActive }) => `${isActive && "text-[#7AA262] font-semibold text-lg"}`}>Plant Care</NavLink>
         </li>
         <li>
-          <NavLink to="/blog">Blog</NavLink>
+          <NavLink to="/blog" className={({ isActive }) => `${isActive && "text-[#7AA262] font-semibold text-lg"}`}>Blog</NavLink>
         </li>
         <li>
-          <NavLink to="/about-us">About</NavLink>
+          <NavLink to="/about-us" className={({ isActive }) => `${isActive && "text-[#7AA262] font-semibold text-lg"}`}>About</NavLink>
         </li>
         <li>
-          <NavLink to="/contact-us">Contact Us</NavLink>
+          <NavLink to="/contact-us" className={({ isActive }) => `${isActive && "text-[#7AA262] font-semibold text-lg"}`}>Contact Us</NavLink>
         </li>
       </ul>
       <NavLink
