@@ -31,7 +31,7 @@ export default function PreOrderModal({
             }}
             className=" bg-[#9FDD79] text-white border border-[#BFBFBF] rounded-[0.9375rem] font-Poppins px-8 py-3 font-medium w-full"
           >
-            Add to Pre Orders
+            Add to Pre Cart
           </button>
           <button
             onClick={handleBuy}
