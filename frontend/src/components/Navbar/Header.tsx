@@ -6,7 +6,15 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import { NavLink } from "react-router-dom";
+import { useCart } from "../../hooks/useCart";
+import { usePreOrder } from "../../hooks/usePreOrder";
+import Badge from "./Badge";
 export default function Header() {
+  const { cart } = useCart();
+  const { preOrderCart } = usePreOrder();
+
+  const productCountInCart = cart.length + preOrderCart.length;
+
   return (
     <div className="min-h-[6rem] border-b border-b-[#BDE3A6] px-8 flex items-center flex-wrap gap-x-8 flex-col gap-y-4 md:flex-row  xl:justify-between font-Poppins py-4 xl:py-0 justify-center w-full max-w-[1600px]">
       <NavLink to="/" className="text-xl font-bold  xl:hidden">
@@ -14,24 +22,64 @@ export default function Header() {
       </NavLink>
       <ul className="flex list-none  gap-x-8 flex-wrap justify-center items-center gap-y-2 font-medium border-none border-black">
         <li>
-          <NavLink to="/" className={({ isActive }) => `${isActive && "text-[#7AA262] font-semibold text-lg"}`}>
+          <NavLink
+            to="/"
+            className={({ isActive }) =>
+              `${isActive && "text-[#7AA262] font-semibold text-lg"}`
+            }
+          >
             Home
           </NavLink>
         </li>
         <li>
-          <NavLink to="/shop-plants" className={({ isActive }) => `${isActive && "text-[#7AA262] font-semibold text-lg"}`}>Shop Plants</NavLink>
+          <NavLink
+            to="/shop-plants"
+            className={({ isActive }) =>
+              `${isActive && "text-[#7AA262] font-semibold text-lg"}`
+            }
+          >
+            Shop Plants
+          </NavLink>
         </li>
         <li>
-          <NavLink to="/plant-care" className={({ isActive }) => `${isActive && "text-[#7AA262] font-semibold text-lg"}`}>Plant Care</NavLink>
+          <NavLink
+            to="/plant-care"
+            className={({ isActive }) =>
+              `${isActive && "text-[#7AA262] font-semibold text-lg"}`
+            }
+          >
+            Plant Care
+          </NavLink>
         </li>
         <li>
-          <NavLink to="/blog" className={({ isActive }) => `${isActive && "text-[#7AA262] font-semibold text-lg"}`}>Blog</NavLink>
+          <NavLink
+            to="/blog"
+            className={({ isActive }) =>
+              `${isActive && "text-[#7AA262] font-semibold text-lg"}`
+            }
+          >
+            Blog
+          </NavLink>
         </li>
         <li>
-          <NavLink to="/about-us" className={({ isActive }) => `${isActive && "text-[#7AA262] font-semibold text-lg"}`}>About</NavLink>
+          <NavLink
+            to="/about-us"
+            className={({ isActive }) =>
+              `${isActive && "text-[#7AA262] font-semibold text-lg"}`
+            }
+          >
+            About
+          </NavLink>
         </li>
         <li>
-          <NavLink to="/contact-us" className={({ isActive }) => `${isActive && "text-[#7AA262] font-semibold text-lg"}`}>Contact Us</NavLink>
+          <NavLink
+            to="/contact-us"
+            className={({ isActive }) =>
+              `${isActive && "text-[#7AA262] font-semibold text-lg"}`
+            }
+          >
+            Contact Us
+          </NavLink>
         </li>
       </ul>
       <NavLink
@@ -66,9 +114,20 @@ export default function Header() {
             </NavLink>
           </div>
           <div>
-            <NavLink to="/cart" className={``}>
+            <NavLink to="/cart" className={`relative`}>
               {({ isActive }) =>
-                isActive ? <ShoppingCartIcon /> : <ShoppingCartOutlinedIcon />
+                isActive ? (
+                  <>
+                    <ShoppingCartIcon />
+                    <Badge count={productCountInCart} />
+                  </>
+                ) : (
+                  <>
+                    {" "}
+                    <ShoppingCartOutlinedIcon />
+                    <Badge count={productCountInCart} />
+                  </>
+                )
               }
             </NavLink>
           </div>

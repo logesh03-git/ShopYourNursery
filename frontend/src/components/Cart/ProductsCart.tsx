@@ -13,10 +13,10 @@ export default function ProductsCart({ cart, flag }: any) {
     const couponDiscount = 0;
     const totals = cart.reduce(
       (totals: any, product: any) => {
-        totals.totalPrice = parseFloat(
+        totals.totalPrice += parseFloat(
           (product.price * product.count).toFixed(2)
         );
-        totals.totalItems = product.count;
+        totals.totalItems += product.count;
         return totals;
       },
       { totalPrice: 0, totalItems: 0 } // Initial values

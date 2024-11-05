@@ -25,6 +25,7 @@ import Faq from "./components/Account/pages/FAQ/Faq";
 import { Terms } from "./components/Account/pages/Terms/Terms";
 import { Help } from "./components/Account/pages/Help/Help";
 import Address from "./pages/Address/Address";
+import PayCheckout from "./pages/PaymentPage/PayCheckout";
 export default function App() {
   return (
     <BrowserRouter>
@@ -85,6 +86,16 @@ export default function App() {
             <Layout>
               <Suspense fallback={<Loading />}>
                 <AddressPage />
+              </Suspense>
+            </Layout>
+          }
+        />
+        <Route
+          path="/payment-window"
+          element={
+            <Layout>
+              <Suspense fallback={<Loading />}>
+                <PayCheckout />
               </Suspense>
             </Layout>
           }

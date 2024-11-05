@@ -1,6 +1,7 @@
 import Indoor from "../../svgIcons/Indoor";
 import { LuPlusCircle, LuMinusCircle } from "react-icons/lu";
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
+import { useNavigate } from "react-router-dom";
 
 type cartCardPropsType = {
   product: any;
@@ -14,16 +15,23 @@ export default function CartCard({
   handleDecrement,
   handleDelete,
 }: cartCardPropsType) {
+  const navigate = useNavigate();
   return (
     <div className="bg-[#FFFFFF] h-[10rem] max-w-[45rem] w-full flex gap-x-4 p-3 pr-6 items-center">
-      <div className="bg-slate-300 rounded-2xl w-[6.5rem] h-[8rem] shrink-0 overflow-hidden">
+      <div
+        onClick={() => navigate(`/shop-plants/${product.id}`)}
+        className="bg-slate-300 rounded-2xl w-[6.5rem] h-[8rem] shrink-0 overflow-hidden cursor-pointer"
+      >
         <img src={product.img} className="object-cover rounded-2xl" />
       </div>
       <div className="w-full flex flex-col gap-y-9 border-none border-black">
         <div className="flex flex-col gap-y-3 w-full">
           <div className="flex justify-between  w-full">
             <div className="flex gap-x-8 items-center">
-              <h2 className="font-Poppins text-sm truncate text-nowrap max-w-[16rem]">
+              <h2
+                onClick={() => navigate(`/shop-plants/${product.id}`)}
+                className="cursor-pointer font-Poppins text-sm truncate text-nowrap max-w-[16rem]"
+              >
                 {product.title}
               </h2>
               <div className="bg-[#F5F5DC] flex gap-x-2 items-center w-fit px-3 py-1 rounded-3xl">

@@ -181,7 +181,20 @@ export default function ProductDetails({ product }: any) {
               className="bg-[#9FDD79] text-white"
               text="Add To Cart"
             />
-            {!product.preOrderStatus ? (
+            <div
+              onClick={() => setIsModalOpen(true)}
+              className="flex h-[3.3rem] items-center overflow-hidden"
+            >
+              <div
+                className={`w-full h-full text-center font-Poppins cursor-pointer font-bold text-lg py-3 px-6 pl-20 rounded-l-full bg-[#7AA262] text-[#F3F3F3] flex items-center justify-center`}
+              >
+                Buy Now
+              </div>
+              <button className="w-[5rem] h-full text-center font-Poppins cursor-pointer font-bold text-xl py-3 px-6 rounded-r-full bg-[#7AA262] text-[#F3F3F3] border-l border-l-white flex justify-center items-center hover:bg-[#7AA262]/[0.9]">
+                <ArrowDropDownIcon fontSize="large" />
+              </button>
+            </div>
+            {/* {!product.preOrderStatus ? (
               <Button
                 onClick={handleBuy}
                 className="bg-[#7AA262] text-[#F3F3F3]"
@@ -201,7 +214,7 @@ export default function ProductDetails({ product }: any) {
                   <ArrowDropDownIcon fontSize="large" />
                 </button>
               </div>
-            )}
+            )} */}
 
             <div>
               {isModalOpen && (
