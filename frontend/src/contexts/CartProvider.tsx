@@ -29,7 +29,7 @@ export default function CartProvider({ children }: CartProviderProps) {
         item.selectedSize == product.size[sizeIndex as number]
     );
     if (res) {
-      alert("Item Already Added to Cart");
+      return "Item Already In The Cart";
     } else if (
       sizeIndex !== -1 &&
       sizeIndex != undefined &&
@@ -45,7 +45,7 @@ export default function CartProvider({ children }: CartProviderProps) {
           },
         ];
       });
-      alert("Item added to cart");
+      return "Added to your Cart";
     }
   };
   const handleDeleteFromCart = (productId: number, selectedSize: string) => {

@@ -33,8 +33,17 @@ export default {
             transform: "translateX(calc(-50% - 2.3rem))",
           },
         },
+        toastIn: {
+          // "0%": { transform: "translateY(30px)", opacity: "0" },
+          // "100%": { transform: "translateY(0)", opacity: "1" },
+          "0%": { transform: "translateY(20px)", opacity: "0" },
+          "10%": { transform: "translateY(0)", opacity: "1" },
+          "80%": { transform: "translateY(0)", opacity: "1" },
+          "100%": { transform: "translateY(20px)", opacity: "0" },
+        },
       },
       animation: {
+        toastUp: "toastIn 3s ease-out",
         autoScrollInfinite: "slide 20s infinite linear",
         autoScrollInfiniteRight: "slideRight 20s infinite linear",
         autoScrollInfinite10: "slide 10s infinite linear",

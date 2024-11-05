@@ -3,21 +3,26 @@ import Favorite from "../../svgIcons/Favorite";
 import Star from "../../svgIcons/Star";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import { iconMap } from "../../constants/iconMapping";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { WishListContext } from "../../contexts/WishListProvider";
 import { useCart } from "../../hooks/useCart";
+import CartToast from "../Cart/modal/CartToast";
 export default function ProductCard({ product }: any) {
   const { wishList, handleFavorite } = useContext(WishListContext);
   const navigate = useNavigate();
   const handleNavigate = () => {
     navigate(`/shop-plants/${product.id}`);
   };
-
   const Icon = iconMap.get(product.place)?.icon;
   const Name = iconMap.get(product.place)?.name;
   const { handleAddToCart } = useCart();
-  const handleAddToCartRandom = () => {
-    handleAddToCart(product, 0);
+  const [toast, setToast] = useState("");
+  const [toastOpen, setToastOpen] = useState(false);
+  const handleAddToCartRandom = async () => {
+    const msg = handleAddToCart(product, 0);
+    setToast(msg);
+    setToastOpen(true);
+    setTimeout(() => setToastOpen(false), 3000);
   };
   return (
     <div className="shrink-0 flex flex-col gap-y-4 justify-start relative cursor-pointer max-w-[11rem] w-full border-none overflow-hidden border-black h-fit">
@@ -37,6 +42,7 @@ export default function ProductCard({ product }: any) {
         >
           <ShoppingCartOutlinedIcon fontSize="small" />
         </div>
+        {toastOpen && <CartToast message={toast} />}
       </div>
       <div className="flex flex-col gap-y-[0.4rem] w-full max-w-[13rem]">
         <div className="flex justify-between  w-full items-center">
