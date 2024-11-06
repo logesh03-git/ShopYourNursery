@@ -35,7 +35,7 @@ export default function Address({ flag }: any) {
       "content-Type": "application/json",
     };
     const res = await fetch(
-      "http://localhost:3001/api/payments/create-checkout-session",
+      "/api/payments/create-checkout-session",
       {
         method: "POST",
         headers: headers,
