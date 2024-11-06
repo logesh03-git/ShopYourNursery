@@ -9,7 +9,7 @@ const port = 3001;
 app.use(express.json());
 app.use(cors());
 
-// app.use(express.static(path.join(__dirname, "../../frontend/dist")));
+app.use(express.static(path.join(__dirname, "../../frontend/dist")));
 
 app.use("/api", apiRouter);
 
