@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import Stripe from "stripe";
 const stripe = new Stripe(process.env.STRIPE_SK || "");
+const FE_URL = process.env.FE || "";
 const handlePaymentCheckout = async (req: Request, res: Response) => {
   const { products, shippingCharges } = req.body;
   const lineItems = products.map((product: any) => ({
@@ -29,14 +30,14 @@ const handlePaymentCheckout = async (req: Request, res: Response) => {
     },
     line_items: lineItems,
     mode: "payment",
-    success_url: `${process.env.FE || ""}/orderplaced?status=true`,
-    cancel_url: `${process.env.FE || ""}/orderplaced?status=false`,
+    success_url: `${FE_URL}/?status=true`,
+    cancel_url: `${FE_URL}/?status=false`,
     shipping_options: [
       {
         shipping_rate_data: {
           type: "fixed_amount",
           fixed_amount: {
-            amount: 500, // Shipping cost in cents
+            amount: shippingCharges, // Shipping cost in cents
             currency: "usd",
           },
           display_name: "Standard Shipping",
