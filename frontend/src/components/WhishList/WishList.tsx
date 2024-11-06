@@ -7,18 +7,22 @@ export default function WishList({ wishList, handleDeleteFromWishList }: any) {
     handleDeleteFromWishList(productId);
   };
   return (
-    <div className="w-[50rem]">
-      <div className="flex flex-col gap-y-12 mt-10 pb-20 min-h-screen">
-        <h1 className="font-Poppins font-bold text-2xl">My Wishlist</h1>
-        <div className="flex flex-col gap-y-6">
-          {products.map((item: any) => (
-            <FavoriteItem
-              key={item.id}
-              product={item}
-              handleDelete={handleDelete}
-            />
-          ))}
-        </div>
+    <div className="border px-[5vw]">
+      <div className="flex flex-col gap-y-2 mt-10 pb-20 min-h-screen">
+        <h1 className="font-Poppins font-bold text-2xl text-center">
+          My Wishlist({products.length})
+        </h1>
+        <table className="border-separate border-spacing-y-10">
+          <tbody className="">
+            {products.map((item: any) => (
+              <FavoriteItem
+                key={item.id}
+                product={item}
+                handleDelete={handleDelete}
+              />
+            ))}
+          </tbody>
+        </table>
       </div>
     </div>
   );

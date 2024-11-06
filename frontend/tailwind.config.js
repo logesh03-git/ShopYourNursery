@@ -41,8 +41,13 @@ export default {
           "80%": { transform: "translateY(0)", opacity: "1" },
           "100%": { transform: "translateY(20px)", opacity: "0" },
         },
+        flicker: {
+          "0%, 100%": { transform: "translateX(0)", border:"4px solid red" },
+          "50%": { transform: "translateX(-10px)" },
+        },
       },
       animation: {
+        flicker: "flicker 0.2s ease-in-out 2",
         toastUp: "toastIn 3s ease-out",
         autoScrollInfinite: "slide 20s infinite linear",
         autoScrollInfiniteRight: "slideRight 20s infinite linear",

@@ -15,8 +15,10 @@ export default function WishListProvider({ children }: any) {
     if (wishList.includes(productId)) {
       const updatedList = wishList.filter((id: any) => id != productId);
       setWishList(updatedList);
+      return "Removed from wishlist."
     } else {
       handleAddToWishList(productId);
+      return "Saved to your wishlist. Happy shopping!";
     }
   };
   return (

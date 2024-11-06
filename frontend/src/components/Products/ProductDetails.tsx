@@ -17,6 +17,7 @@ import { iconMap } from "../../constants/iconMapping";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import PreOrderModal from "../Modals/PreOrderModal";
 import { usePreOrder } from "../../hooks/usePreOrder";
+import CartToast from "../Cart/modal/CartToast";
 export default function ProductDetails({ product }: any) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { wishList, handleFavorite } = useContext(WishListContext);
@@ -25,21 +26,38 @@ export default function ProductDetails({ product }: any) {
   const { handleAddToPreOrderCart } = usePreOrder();
   const [imgIndex, setImgIndex] = useState<number>(0);
   const [selectSize, setSize] = useState(-1);
+  const [sizeSelected, setSizeSelected] = useState(false);
   const pImgs = product?.imgs?.length ? product.imgs : [];
   const imgs = [product.img, ...pImgs];
+  const [toast, setToast] = useState("");
   const sizeBtn = {
     active: "border-[#1F4508] text-[#1F4508] ",
-    disabled: "border-[#C7C8C6] text-[#BEC0BD]",
+    disabled: "border-red-500 text-[#BEC0BD]",
   };
   const handleChangeImg = (index: number) => {
     setImgIndex(index);
   };
+  const handleAddToFavorite = () => {
+    const msg = handleFavorite(product.id);
+    setToast(msg);
+    setTimeout(() => setToast(""), 3000);
+  };
+  const handleAddToCartWithToast = () => {
+    const msg = handleAddToCart(product, selectSize);
+    setToast(msg);
+    setTimeout(() => setToast(""), 3000);
+  };
+  const handleAddToPreOrderCartWithToast = () => {
+    const msg = handleAddToPreOrderCart(product, selectSize);
+    setToast(msg);
+    setTimeout(() => setToast(""), 3000);
+  };
   const handleAddProduct = (flag: string) => {
     selectSize !== -1
       ? flag == "cart"
-        ? handleAddToCart(product, selectSize)
-        : handleAddToPreOrderCart(product, selectSize)
-      : alert("Select size to Add Item to Cart");
+        ? handleAddToCartWithToast()
+        : handleAddToPreOrderCartWithToast()
+      : (setSizeSelected(true), setTimeout(() => setSizeSelected(false), 1000));
   };
   const handleBuy = () => {
     if (selectSize !== -1) {
@@ -62,12 +80,13 @@ export default function ProductDetails({ product }: any) {
         },
       });
     }
-    alert("select plant size");
+    setSizeSelected(true), setTimeout(() => setSizeSelected(false), 1000);
   };
   const Icon = iconMap.get(product.place).icon;
   const IconName = iconMap.get(product.place).name;
   return (
     <div className="flex gap-x-16 mb-10">
+      {toast && <CartToast message={toast} />}
       <div className="flex flex-col gap-y-5 mt-10">
         {imgs.map((img, index) => (
           <div
@@ -91,7 +110,7 @@ export default function ProductDetails({ product }: any) {
             src={imgs[imgIndex]}
           />
           <div
-            onClick={() => handleFavorite(product.id)}
+            onClick={handleAddToFavorite}
             className="absolute bg-white/80 cursor-pointer top-8 right-8 rounded-full overflow-hidden size-[2.3rem] flex justify-center items-center pt-1"
           >
             <Favorite
@@ -168,7 +187,9 @@ export default function ProductDetails({ product }: any) {
                   key={index}
                   className={`p-[0.6rem] border rounded-xl ${
                     selectSize == index ? sizeBtn.active : sizeBtn.disabled
-                  } font-medium text-lg`}
+                  } font-medium text-lg ${
+                    sizeSelected ? "animate-flicker" : ""
+                  }`}
                 >
                   {size}
                 </button>
@@ -181,19 +202,26 @@ export default function ProductDetails({ product }: any) {
               className="bg-[#9FDD79] text-white"
               text="Add To Cart"
             />
-            <div
-              onClick={() => setIsModalOpen(true)}
-              className="flex h-[3.3rem] items-center overflow-hidden"
-            >
+            {parseInt(product?.quantity)==0 ? (
+              <Button
+                className="bg-[#7AA262] text-white"
+                text="Out of Stock"
+              />
+            ) : (
               <div
-                className={`w-full h-full text-center font-Poppins cursor-pointer font-bold text-lg py-3 px-6 pl-20 rounded-l-full bg-[#7AA262] text-[#F3F3F3] flex items-center justify-center`}
+                onClick={() => setIsModalOpen(true)}
+                className={`flex h-[3.3rem] items-center overflow-hidden`}
               >
-                Buy Now
+                <div
+                  className={`w-full h-full text-center font-Poppins cursor-pointer font-bold text-lg py-3 px-6 pl-20 rounded-l-full bg-[#7AA262] text-[#F3F3F3] flex items-center justify-center`}
+                >
+                  Buy Now
+                </div>
+                <button className="w-[5rem] h-full text-center font-Poppins cursor-pointer font-bold text-xl py-3 px-6 rounded-r-full bg-[#7AA262] text-[#F3F3F3] border-l border-l-white flex justify-center items-center hover:bg-[#7AA262]/[0.9]">
+                  <ArrowDropDownIcon fontSize="large" />
+                </button>
               </div>
-              <button className="w-[5rem] h-full text-center font-Poppins cursor-pointer font-bold text-xl py-3 px-6 rounded-r-full bg-[#7AA262] text-[#F3F3F3] border-l border-l-white flex justify-center items-center hover:bg-[#7AA262]/[0.9]">
-                <ArrowDropDownIcon fontSize="large" />
-              </button>
-            </div>
+            )}
             {/* {!product.preOrderStatus ? (
               <Button
                 onClick={handleBuy}

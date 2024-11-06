@@ -10,6 +10,7 @@ export const popularPlants = [
     title: "Fiddle Leaf Fig (Ficus lyrata)",
     markedPrice: 79.99,
     price: 60.0,
+    quantity: 1,
     description:
       "This trendy indoor plant is known for its large, glossy leaves that make a bold statement in any room. It thrives in bright, indirect light and needs consistent moisture to stay healthy.",
     benefits: [],
@@ -30,6 +31,7 @@ export const popularPlants = [
     title: "Snake Plant (Sansevieria trifasciata)",
     markedPrice: 30.99,
     price: 25.0,
+    quantity: 0,
     description:
       "A hardy, low-maintenance plant that tolerates neglect. It thrives in low light and helps purify the air, making it perfect for bedrooms or offices.",
     benefits: [],
@@ -50,6 +52,7 @@ export const popularPlants = [
     title: "Peace Lily (Spathiphyllum)",
     markedPrice: 250.99,
     price: 200,
+    quantity: 1,
     description:
       "A popular choice for indoor spaces, the Peace Lily features elegant white blooms and is known for its air-purifying properties. It prefers low to medium light and moist soil.",
     benefits: [],
@@ -71,6 +74,7 @@ export const popularPlants = [
     title: "Monstera Deliciosa",
     markedPrice: 60.99,
     price: 45.0,
+    quantity: 0,
     description:
       "Known for its iconic split leaves, the Monstera is a favorite among plant enthusiasts. It grows best in bright, indirect light and requires regular watering.",
     benefits: [],
@@ -91,6 +95,7 @@ export const popularPlants = [
     title: "Pothos",
     markedPrice: 30.99,
     price: 15.0,
+    quantity: 3,
     description:
       "This fast-growing trailing plant is perfect for hanging baskets or as a climber. It's very forgiving and thrives in low light with minimal care.",
     benefits: [],

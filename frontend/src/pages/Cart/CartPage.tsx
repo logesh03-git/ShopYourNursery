@@ -3,7 +3,6 @@ import EmptyCart from "../../components/Cart/EmptyCart";
 import ProductsCart from "../../components/Cart/ProductsCart";
 import { useCart } from "../../hooks/useCart";
 import { usePreOrder } from "../../hooks/usePreOrder";
-import CartToast from "../../components/Cart/modal/CartToast";
 
 export default function CartPage() {
   const [orderBtn, setOrderBtn] = useState(0);

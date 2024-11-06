@@ -20,7 +20,7 @@ export default function PreOrderProvider({ children }: CartProviderProps) {
         item.selectedSize == product.size[sizeIndex as number]
     );
     if (res) {
-      alert("Item Already Added to Pre Orders");
+      return "Item Already In The Pre Orders";
     } else if (
       sizeIndex !== -1 &&
       sizeIndex != undefined &&
@@ -36,7 +36,7 @@ export default function PreOrderProvider({ children }: CartProviderProps) {
           },
         ];
       });
-      alert("Item added to Pre Orders");
+      return "Item added to Pre Orders";
     }
   };
   const handleDeleteFromPreOrderCart = (

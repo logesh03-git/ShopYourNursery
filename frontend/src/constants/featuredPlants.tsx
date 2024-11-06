@@ -8,6 +8,7 @@ export const featuredPlants = [
     title: "Emerald Green Arborvitae (Thuja occidentalis)",
     markedPrice: 70.55,
     price: 40.97,
+    quantity: 3,
     description:
       "A popular evergreen shrub widely used for privacy screens and hedging due to its dense, compact growth habit. With vibrant green foliage that remains lush year-round, this hardy plant is well-suited to a variety of climates. It grows best in full sun to partial shade and thrives in welldrained soil. As a low-maintenance plant, it only requires occasional pruning to maintain its shape and size, making it a favorite among both new and experienced gardeners.",
     benefits: [
@@ -32,6 +33,7 @@ export const featuredPlants = [
     title: "Yellow Asiatic Lily (Lilium asiaticum)",
     markedPrice: 39.99,
     price: 19.98,
+    quantity: 2,
     description:
       "Asiatic Lilies are renowned for their early summer blooms, showcasing vibrant colors that make them a striking addition to any garden. The Yellow Asiatic Lily, in particular, produces radiant golden-yellow flowers that stand out in flower beds and borders. These lilies are not only beautiful but also relatively low-maintenance. They thrive in full sun and prefer well-drained soil, ensuring they bloom abundantly. With their upright stems and bright blossoms, they are also excellent as cut flowers for indoor arrangements.",
     benefits: [
@@ -56,6 +58,7 @@ export const featuredPlants = [
     title: "Hydrangea 'L.A. Dreamin'",
     markedPrice: 80.9,
     price: 60.45,
+    quantity: 0,
     description:
       "This multi-colored hydrangea variety is known for its show-stopping blooms, which range from pink to blue, depending on the soil’s pH. The 'L.A. Dreamin' is a versatile plant that does well in both containers and garden beds, adding a vibrant, colorful touch to any space. It thrives in partial shade and requires consistent moisture, making it perfect for shaded areas in gardens. Its large, rounded flower clusters are visually captivating and can last throughout the summer season, making it a favorite for ornamental landscaping.",
     benefits: [
@@ -80,6 +83,7 @@ export const featuredPlants = [
     title: "Meyer Lemon Tree",
     markedPrice: 60.55,
     price: 40.98,
+    quantity: 1,
     description:
       "A dwarf citrus tree, the Meyer Lemon is prized for its fragrant white blossoms and sweet, tangy lemons. Suitable for both indoor and outdoor growing, this versatile tree flourishes  in containers and can easily be brought indoors during cooler months. It requires full sun to produce an abundance of fruit and enjoys well-drained soil. The Meyer Lemon is perfect for small spaces, patios, and sunny windows, adding both beauty and functionality to any home or garden. Regular feeding and watering will ensure healthy growth and a bountiful lemon harvest.",
     benefits: [

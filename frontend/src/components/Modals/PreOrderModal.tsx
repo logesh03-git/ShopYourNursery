@@ -7,7 +7,7 @@ export default function PreOrderModal({
 }: any) {
   const root = document.getElementById("modal-portal");
   return ReactDOM.createPortal(
-    <div className="bg-black/40 backdrop-blur-[1px]  py-44 fixed inset-0 w-full h-full z-50 flex justify-center">
+    <div className="py-44 fixed inset-0 w-full h-full z-50 flex justify-center">
       <div className="transition-all duration-500 px-6 blur-0 py-5 rounded-[1.25rem] bg-white w-full min-w-[25rem] max-w-[35rem] flex flex-col gap-y-2 absolute top-28 h-fit">
         <div className="w-full flex justify-between gap-x-10 items-center">
           <h1 className="font-Poppins font-semibold text-lg">Pre Order Item</h1>

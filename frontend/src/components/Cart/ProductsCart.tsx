@@ -25,6 +25,9 @@ export default function ProductsCart({ cart, flag }: any) {
     return { ...totals, shippingCharges, couponDiscount, totalAmount };
   }, [cart]);
   const priceSummary = calculateTotalPrices();
+  const filteredStock = cart.filter(
+    (item: any) => parseInt(item?.quantity) !== 0
+  );
   return (
     <div className="flex gap-x-10 w-full justify-center items-start">
       {flag === "preorder" ? (
@@ -36,7 +39,7 @@ export default function ProductsCart({ cart, flag }: any) {
         text={
           flag === "preorder" ? "Proceed to Pre-order" : "Proceed to Checkout"
         }
-        products={cart}
+        products={filteredStock}
         priceSummary={priceSummary}
       />
     </div>
