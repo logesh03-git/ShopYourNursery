@@ -29,8 +29,8 @@ const handlePaymentCheckout = async (req: Request, res: Response) => {
     },
     line_items: lineItems,
     mode: "payment",
-    success_url: `http://localhost:5173/orderplaced?status=true`,
-    cancel_url: `http://localhost:5173/orderplaced?status=false`,
+    success_url: `${process.env.FE || ""}/orderplaced?status=true`,
+    cancel_url: `${process.env.FE || ""}/orderplaced?status=false`,
     shipping_options: [
       {
         shipping_rate_data: {
