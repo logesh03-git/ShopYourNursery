@@ -5,6 +5,7 @@ import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import { useLocation, useNavigate } from "react-router-dom";
 import PlusIcon from "../../svgIcons/PlusIcon";
 import { addressList as addressArray } from "../../constants/addressList";
+const BE_URL = import.meta.env.VITE_BE || "";
 export default function Address({ flag }: any) {
   const location = useLocation();
   const products =
@@ -34,14 +35,11 @@ export default function Address({ flag }: any) {
     const headers = {
       "content-Type": "application/json",
     };
-    const res = await fetch(
-      "/api/payments/create-checkout-session",
-      {
-        method: "POST",
-        headers: headers,
-        body: JSON.stringify(body),
-      }
-    );
+    const res = await fetch(`${BE_URL}/api/payments/create-checkout-session`, {
+      method: "POST",
+      headers: headers,
+      body: JSON.stringify(body),
+    });
     const resBody = await res.json();
     window.location.href = resBody.url;
   };
