@@ -6,8 +6,9 @@ import { useLocation, useNavigate } from "react-router-dom";
 import PlusIcon from "../../svgIcons/PlusIcon";
 import { addressList as addressArray } from "../../constants/addressList";
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "";
-console.log(API_BASE_URL);
+
 export default function Address({ flag }: any) {
+  console.log(API_BASE_URL);
   const location = useLocation();
   const products =
     location.state &&

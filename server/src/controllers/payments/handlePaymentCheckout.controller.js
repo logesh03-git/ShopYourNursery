@@ -1,10 +1,10 @@
-import { Request, Response } from "express";
-import Stripe from "stripe";
-const stripe = new Stripe(process.env.STRIPE_SK || "");
+const express = require("express");
+const stripe = require("stripe")(process.env.STRIPE_SK || "");
 const FE_URL = process.env.FE || "";
-const handlePaymentCheckout = async (req: Request, res: Response) => {
+
+const handlePaymentCheckout = async (req, res) => {
   const { products, shippingCharges } = req.body;
-  const lineItems = products.map((product: any) => ({
+  const lineItems = products.map((product) => ({
     price_data: {
       currency: "usd",
       product_data: {
@@ -60,4 +60,4 @@ const handlePaymentCheckout = async (req: Request, res: Response) => {
   res.json({ url: session.url });
 };
 
-export default handlePaymentCheckout;
+module.exports = handlePaymentCheckout;

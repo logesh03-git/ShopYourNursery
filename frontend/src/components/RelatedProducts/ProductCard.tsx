@@ -28,7 +28,7 @@ export default function ProductCard({ product }: any) {
     setTimeout(() => setToast(""), 3000);
   };
   return (
-    <div className="shrink-0 flex flex-col gap-y-4 justify-start relative cursor-pointer max-w-[11rem] w-full border-none overflow-hidden border-black h-fit">
+    <div className="shrink-0 flex flex-col gap-y-4 justify-start relative cursor-pointer w-[11rem] max-w-[11rem]  border-none overflow-hidden border-black h-fit">
       <div className="flex h-[14rem] w-[11rem] rounded-[0.9375rem] bg-slate-200 relative over">
         <img
           onClick={handleNavigate}
