@@ -6,7 +6,7 @@ const CareProduct = () => {
 
   const handlePlantClick = (plant: any) => {
     navigate("/plant-care/details", {
-      state: { img: plant.img, title: plant.title },
+      state: { img: plant.imgs[0], title: plant.title },
     }); // Pass the plant object
   };
 
@@ -19,7 +19,7 @@ const CareProduct = () => {
           onClick={() => handlePlantClick(plant)}
         >
           <img
-            src={plant.img}
+            src={plant.imgs[0]}
             alt={plant.title}
             className="rounded-lg w-[200px] h-[200px] object-cover"
           />

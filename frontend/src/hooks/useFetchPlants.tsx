@@ -17,7 +17,7 @@ const useFetchPlants = () => {
         }
         const data = await response.json();
         setPlants(data); // Update the plants state with the fetched data
-      } catch (err) {
+      } catch (err: any) {
         setError(err.messsage); // Update error state if the fetch fails
       } finally {
         setLoading(false); // Set loading to false once fetch is complete
