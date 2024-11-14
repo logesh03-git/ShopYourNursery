@@ -24,7 +24,7 @@ export default function FavoriteItem({ product, handleDelete }: any) {
               className="h-[6rem] w-[4rem] rounded-xl bg-slate-200"
             >
               <img
-                src={product.img}
+                src={product.imgs[0]}
                 className="rounded-xl object-cover w-full h-full"
               />
             </div>
@@ -42,7 +42,11 @@ export default function FavoriteItem({ product, handleDelete }: any) {
           </div>
         </div>
       </td>
-      <td className={`px-[10rem]  font-medium font-Poppins align-middle ${!isInStock && "text-red-500"}`}>
+      <td
+        className={`px-[10rem]  font-medium font-Poppins align-middle ${
+          !isInStock && "text-red-500"
+        }`}
+      >
         {isInStock ? "In Stock" : "Out of Stock"}
       </td>
       <td className="w-[10rem] align-middle">

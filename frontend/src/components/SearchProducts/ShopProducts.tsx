@@ -2,9 +2,9 @@ import { useState, useEffect } from "react";
 import AdBanner from "./Banner/AdBanner";
 import Filter from "./Filter";
 import Products from "./Products";
-import { plantProducts } from "../../constants/tempProducts";
 import filterMap from "../../constants/filtermap";
 import { filterTypes } from "../../constants/filtermap";
+import useFetchPlants from "../../hooks/useFetchPlants";
 
 const defaultFilter: any = {};
 filterTypes.forEach((type: string) => {
@@ -13,7 +13,9 @@ filterTypes.forEach((type: string) => {
 
 export default function ShopProducts() {
   const [selectedFilter, setSelectedFilter] = useState<any>(defaultFilter);
-  const [products, setProducts] = useState(plantProducts);
+  const { plants, loading } = useFetchPlants();
+  const [products, setProducts] = useState(plants);
+  console.log(products);
   const handleClear = () => {
     setSelectedFilter(defaultFilter);
   };
@@ -37,6 +39,7 @@ export default function ShopProducts() {
     selectedFilter.place.length,
     selectedFilter.size.length,
     selectedFilter.rating.length,
+    loading,
   ];
   useEffect(() => {
     const isEmptyOfSelectedFilters = () => {
@@ -45,27 +48,27 @@ export default function ShopProducts() {
     };
     const getFilteredProducts = () => {
       setProducts(() => {
-        const filteredProducts = plantProducts
-          .filter((product) =>
+        const filteredProducts = plants
+          .filter((product: any) =>
             selectedFilter?.size.length === 0
               ? true
               : selectedFilter?.size.includes(product.size[0]) |
                 selectedFilter?.size.includes(product.size[1]) |
                 selectedFilter?.size.includes(product.size[2])
           )
-          .filter((product) =>
+          .filter((product: any) =>
             selectedFilter?.place.length === 0
               ? true
               : selectedFilter?.place.includes(product.place)
           )
-          .filter((product) =>
+          .filter((product: any) =>
             selectedFilter?.rating.length === 0
               ? true
               : selectedFilter?.rating.some(
                   (rate: number) => product.rating >= rate
                 )
           )
-          .filter((product) => {
+          .filter((product: any) => {
             if (selectedFilter?.price.length === 0) return true;
             const priceBool = selectedFilter?.price.some((priceJSON: any) => {
               const priceRange = JSON.parse(priceJSON);
@@ -100,11 +103,16 @@ export default function ShopProducts() {
         return filteredProducts;
       });
     };
-    !isEmptyOfSelectedFilters()
-      ? getFilteredProducts()
-      : setProducts(plantProducts);
+    !isEmptyOfSelectedFilters() ? getFilteredProducts() : setProducts(plants);
   }, dependencyArray);
-  // console.log(selectedFilter);c
+  // console.log(selectedFilter);
+  if (loading) {
+    return (
+      <div className="h-96 flex flex-col justify-center items-center">
+        Fetching ...
+      </div>
+    );
+  }
   return (
     <div className="max-w-[1600px] w-full">
       <AdBanner />

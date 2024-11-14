@@ -11,7 +11,7 @@ export default function ProductCard({ product }: any) {
   const { wishList, handleFavorite } = useContext(WishListContext);
   const navigate = useNavigate();
   const handleNavigate = () => {
-    navigate(`/shop-plants/${product.id}`);
+    navigate(`/shop-plants/${product._id}`);
   };
   const Icon = iconMap.get(product.place)?.icon;
   const Name = iconMap.get(product.place)?.name;
@@ -32,11 +32,7 @@ export default function ProductCard({ product }: any) {
       <div className="flex h-[14rem] w-[11rem] rounded-[0.9375rem] bg-slate-200 relative over">
         <img
           onClick={handleNavigate}
-          src={
-            product.img
-              ? product.img
-              : "https://s3-alpha-sig.figma.com/img/3665/6b0c/6916bf87e9e53802eeaf0c523ec63bb1?Expires=1729468800&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=UDsrf9ckQHF0Y~AGwSBTzUfceXZW2km1Gpargcuh4Zbazuoc0UCJG7IJqSAyNN53~irbZQc-jMk27NwuON2qFe1yuWbuFUrCrbhPsyYHjw7F3AjY9BZ8hMn-0PalwRaY4Y8IAAG1oK2lIJvw01ZP3~5gUMKBD~QWZpuCORa-OV7pjqhy6y~ScNt4p9A0H5J1O3wZKsoTUlV6fiCG49gS5il-sF-sakKvt9PkZTaPLOD7hkyiXtj06h-WNtsE-Kuk1skpmFUeoLtHBPGiWrHufM3w3JN6F8fPO1ExVTJms-wY~F3QAwdHia1KPeqhmN90ZEtYddw-uIHPT6GgLu4TSQ__"
-          }
+          src={product.imgs.length ? product.imgs[0] : ""}
           className="object-cover rounded-[0.9375rem] h-full w-full"
         />
         <div

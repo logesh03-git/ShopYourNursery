@@ -28,7 +28,7 @@ export default function ProductDetails({ product }: any) {
   const [selectSize, setSize] = useState(-1);
   const [sizeSelected, setSizeSelected] = useState(false);
   const pImgs = product?.imgs?.length ? product.imgs : [];
-  const imgs = [product.img, ...pImgs];
+  const imgs = [...pImgs];
   const [toast, setToast] = useState("");
   const sizeBtn = {
     active: "border-[#1F4508] text-[#1F4508] ",
