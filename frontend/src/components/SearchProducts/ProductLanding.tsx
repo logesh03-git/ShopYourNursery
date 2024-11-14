@@ -4,7 +4,7 @@ import ProductDetails from "../Products/ProductDetails";
 import ProductRow from "../Products/ProductRow";
 import ProductDescription from "./ProductDescription";
 import { useEffect, useState } from "react";
-const API_URL = import.meta.env.VITE_API_BASE_URL;
+const API_URL = import.meta.env.VITE_API_BASE_URL || "";
 
 export default function ProductLanding() {
   const { id } = useParams();
