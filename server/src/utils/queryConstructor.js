@@ -1,4 +1,4 @@
-const constructQuery = (filters) => {
+const queryConstructor = (filters) => {
   const query = {};
   if (filters.size.length) {
     query.size = { $in: filters.size };
@@ -20,4 +20,4 @@ const constructQuery = (filters) => {
   return query;
 };
 
-module.exports = constructQuery;
+module.exports = queryConstructor;

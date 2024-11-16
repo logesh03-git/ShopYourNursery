@@ -1,7 +1,7 @@
 const express = require("express");
 const Plant = require("../models/plants.model");
 const router = express.Router();
-const constructQuery = require("../utils/constructQuery");
+const constructQuery = require("../utils/queryConstructor");
 const { searchPlants } = require("../controllers/plants/plant.controller");
 router.post("/create", async (req, res) => {
   try {
