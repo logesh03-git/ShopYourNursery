@@ -1,7 +1,9 @@
 const express = require("express");
 const jwt = require("jsonwebtoken");
 const User = require("../models/users.model");
-
+const reviewValidator = require("../middlewares/reviewValidator");
+const postReviews = require("../controllers/users/postReviews.controller");
+const getReviews = require("../controllers/users/getReviews.controller");
 const router = express.Router();
 
 router.post("/signup", async (req, res) => {
@@ -25,5 +27,8 @@ router.post("/signup", async (req, res) => {
     return res.status(500).json({ message: "Something went wrong" });
   }
 });
+
+router.post("/reviews", reviewValidator, postReviews);
+router.get("/reviews", getReviews);
 
 module.exports = router;
