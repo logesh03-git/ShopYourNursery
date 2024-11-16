@@ -13,7 +13,7 @@ export default function ProductCard({ product }: any) {
   const handleNavigate = () => {
     navigate(`/shop-plants/${product._id}`);
   };
-  const Icon = iconMap.get(product.place)?.icon;
+  const Icon = iconMap.get(product.place)?.icon || "";
   const Name = iconMap.get(product.place)?.name;
   const { handleAddToCart } = useCart();
   const [toast, setToast] = useState("");
@@ -81,7 +81,7 @@ export default function ProductCard({ product }: any) {
         Shop Now
       </button>
       <div className="flex gap-x-1 items-center rounded-[1.25rem] bg-[rgba(255,255,255,0.60)] hover:bg-white  absolute top-3 right-2 px-2 py-[2px] text-xs">
-        <Icon size={"18"} />
+        {Icon && <Icon size={"18"} />}
         <span className="text-[0.6rem]">{Name}</span>
       </div>
     </div>

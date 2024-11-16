@@ -6,4 +6,4 @@ export const iconMap = new Map();
 
 iconMap.set("indoor", { name: "Indoor", icon: Indoor });
 iconMap.set("outdoor", { name: "Outdoor", icon: Outdoor });
-iconMap.set("petfriendly", { name: "Pet Friendly", icon: Pet });
+iconMap.set("pet friendly", { name: "Pet Friendly", icon: Pet });

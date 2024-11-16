@@ -18,6 +18,7 @@ import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import PreOrderModal from "../Modals/PreOrderModal";
 import { usePreOrder } from "../../hooks/usePreOrder";
 import CartToast from "../Cart/modal/CartToast";
+import { capitalize } from "../../utils/capitalize";
 export default function ProductDetails({ product }: any) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { wishList, handleFavorite } = useContext(WishListContext);
@@ -191,7 +192,7 @@ export default function ProductDetails({ product }: any) {
                     sizeSelected ? "animate-flicker" : ""
                   }`}
                 >
-                  {size}
+                  {capitalize(size)}
                 </button>
               ))}
             </div>
@@ -202,11 +203,8 @@ export default function ProductDetails({ product }: any) {
               className="bg-[#9FDD79] text-white"
               text="Add To Cart"
             />
-            {parseInt(product?.quantity)==0 ? (
-              <Button
-                className="bg-[#7AA262] text-white"
-                text="Out of Stock"
-              />
+            {parseInt(product?.quantity) == 0 ? (
+              <Button className="bg-[#7AA262] text-white" text="Out of Stock" />
             ) : (
               <div
                 onClick={() => setIsModalOpen(true)}

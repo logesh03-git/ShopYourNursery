@@ -4,12 +4,10 @@ import ReviewCard from "./ReviewCard";
 import * as apiClient from "../../apiClient/apiClient";
 import Loading from "../Loading/Loading";
 export default function CustomerReviews() {
-  console.log(apiClient.fetchReviews);
   const { data, isLoading } = useQuery({
     queryKey: ["fetchReviews"],
     queryFn: () => apiClient.fetchReviews(),
   });
-  console.log(data);
   const config = data ? [...data] : [];
   return (
     <div className="flex flex-col gap-y-14  my-10 sm:my-10 sm:mb-20 max-w-[1600px] w-full">

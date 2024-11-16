@@ -16,10 +16,12 @@ export default function FilterCard({
 }: propsType) {
   return (
     <div className="px-4 flex flex-col gap-y-2">
-      <div className="flex justify-between items-center">
+      <div
+        onClick={() => handleActiveFilter(filter.type)}
+        className="flex justify-between items-center cursor-pointer"
+      >
         <h2 className="font-Poppins font-medium">{filter?.title}</h2>
         <span
-          onClick={() => handleActiveFilter(filter.type)}
           className={`h-fit transition-transform duration-300 cursor-pointer ${
             activeFilter.includes(filter?.type) ? "rotate-0" : "rotate-180"
           }`}
@@ -50,7 +52,9 @@ export default function FilterCard({
                 )}
               />
               <div className="flex gap-x-1 items-center">
-                {filter.type !== "price" && item}
+                {filter.type == "size" &&
+                  item.charAt(0).toUpperCase() + item.slice(1)}
+                {filter.type == "place" && item}
                 {filter.type == "rating" && (
                   <div className="flex  items-center">
                     <Blackstar size="18" />

@@ -1,10 +1,13 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import AdBanner from "./Banner/AdBanner";
 import Filter from "./Filter";
 import Products from "./Products";
 import filterMap from "../../constants/filtermap";
 import { filterTypes } from "../../constants/filtermap";
-import useFetchPlants from "../../hooks/useFetchPlants";
+import { useQuery } from "@tanstack/react-query";
+import * as apiClient from "../../apiClient/apiClient";
+import { useSearchParams } from "react-router-dom";
+import Pagination from "./Pagination";
 
 const defaultFilter: any = {};
 filterTypes.forEach((type: string) => {
@@ -13,9 +16,22 @@ filterTypes.forEach((type: string) => {
 
 export default function ShopProducts() {
   const [selectedFilter, setSelectedFilter] = useState<any>(defaultFilter);
-  const { plants, loading } = useFetchPlants();
-  const [products, setProducts] = useState(plants);
-  console.log(products);
+  const dependencyArray = [
+    selectedFilter.price.length,
+    selectedFilter.place.length,
+    selectedFilter.size.length,
+    selectedFilter.rating.length,
+    selectedFilter?.page,
+  ];
+  const [_, setSearchParams] = useSearchParams();
+  const { data, isLoading } = useQuery({
+    queryKey: ["fetchPlants", ...dependencyArray],
+    queryFn: () => {
+      setSearchParams(selectedFilter);
+      return apiClient.fetchPlants(selectedFilter);
+    },
+  });
+
   const handleClear = () => {
     setSelectedFilter(defaultFilter);
   };
@@ -29,90 +45,13 @@ export default function ShopProducts() {
       const filteredList = prev[type]?.includes(value)
         ? prev[type].filter((item: any) => item !== value)
         : [...prev[type], value];
-      return { ...prev, [type]: filteredList };
+      return { ...prev, [type]: filteredList, page: "" };
     });
   };
-
-  // console.log(selectedFilter);
-  const dependencyArray = [
-    selectedFilter.price.length,
-    selectedFilter.place.length,
-    selectedFilter.size.length,
-    selectedFilter.rating.length,
-    loading,
-  ];
-  useEffect(() => {
-    const isEmptyOfSelectedFilters = () => {
-      const res = dependencyArray.filter((val) => val != 0);
-      return res.length == 0 ? true : false;
-    };
-    const getFilteredProducts = () => {
-      setProducts(() => {
-        const filteredProducts = plants
-          .filter((product: any) =>
-            selectedFilter?.size.length === 0
-              ? true
-              : selectedFilter?.size.includes(product.size[0]) |
-                selectedFilter?.size.includes(product.size[1]) |
-                selectedFilter?.size.includes(product.size[2])
-          )
-          .filter((product: any) =>
-            selectedFilter?.place.length === 0
-              ? true
-              : selectedFilter?.place.includes(product.place)
-          )
-          .filter((product: any) =>
-            selectedFilter?.rating.length === 0
-              ? true
-              : selectedFilter?.rating.some(
-                  (rate: number) => product.rating >= rate
-                )
-          )
-          .filter((product: any) => {
-            if (selectedFilter?.price.length === 0) return true;
-            const priceBool = selectedFilter?.price.some((priceJSON: any) => {
-              const priceRange = JSON.parse(priceJSON);
-              const res =
-                priceRange.min <= product.price &&
-                priceRange.max >= product.price
-                  ? true
-                  : false;
-              return res;
-            });
-            return priceBool;
-          });
-        //filtering based based on or condition means if any of the selected is true is returns true
-        // const filteredProducts = plantProducts.filter((product) => {
-        //   const sizeBool = selectedFilter?.size.includes(product.size);
-        //   const placeBool = selectedFilter?.place.includes(
-        //     product.place.toLowerCase()
-        //   );
-        // const ratingBool = selectedFilter?.rating.some(
-        //   (rate: number) => product.rating >= rate
-        // );
-        // const priceBool = selectedFilter?.price.some((priceJSON: any) => {
-        //   const priceRange = JSON.parse(priceJSON);
-        //   const res =
-        //     priceRange.min <= product.price && priceRange.max >= product.price
-        //       ? true
-        //       : false;
-        //   return res;
-        // });
-        //   return sizeBool || placeBool || ratingBool || priceBool;
-        // });
-        return filteredProducts;
-      });
-    };
-    !isEmptyOfSelectedFilters() ? getFilteredProducts() : setProducts(plants);
-  }, dependencyArray);
-  // console.log(selectedFilter);
-  if (loading) {
-    return (
-      <div className="h-96 flex flex-col justify-center items-center">
-        Fetching ...
-      </div>
-    );
-  }
+  const handlePage = (pageNumber: any) => {
+    setSelectedFilter((prev: any) => ({ ...prev, page: pageNumber }));
+    window.scrollTo(0, 0);
+  };
   return (
     <div className="max-w-[1600px] w-full">
       <AdBanner />
@@ -123,7 +62,35 @@ export default function ShopProducts() {
           selectedFilter={selectedFilter}
           handleClear={handleClear}
         />
-        <Products products={products} />
+        {isLoading ? (
+          <div className="h-96 flex flex-col justify-center items-center">
+            Fetching ...
+          </div>
+        ) : (
+          data.plants && (
+            <div>
+              {data.plants.length == 0 ? (
+                <div className="font-medium h-[10rem] flex items-center justify-center">
+                  No Plants Found
+                </div>
+              ) : (
+                <Products products={data?.plants} />
+              )}
+
+              {data.pagination.pages !== 1 && (
+                <Pagination
+                  pages={data.pagination.pages}
+                  activePage={
+                    data.pagination.page == 1
+                      ? data.pagination.page
+                      : selectedFilter.page
+                  }
+                  handlePage={handlePage}
+                />
+              )}
+            </div>
+          )
+        )}
       </div>
     </div>
   );
