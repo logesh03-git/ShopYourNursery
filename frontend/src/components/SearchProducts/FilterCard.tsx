@@ -60,9 +60,9 @@ export default function FilterCard({
                 {filter.type == "price" && (
                   <div>
                     {item.min == 0
-                      ? `under $${item.max}`
+                      ? `Under $${item.max}`
                       : item.max == Number.MAX_VALUE
-                      ? `above $${item.min}`
+                      ? `Above $${item.min}`
                       : `$${item.min}-$${item.max}`}
                   </div>
                 )}

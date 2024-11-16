@@ -9,7 +9,7 @@ type footerPropsType = {
 function Footer({ className }: footerPropsType) {
   return (
     <div
-      className={`bg-[#F8FFEF]  flex flex-col lg:grid lg:grid-col lg:gap-x-10 p-10 py-14 max-w-[1600px] w-[1512px] h-[572px] mt-10 ${className}`}
+      className={`bg-[#F8FFEF]  flex flex-col lg:grid lg:grid-col lg:gap-x-10 p-10 py-14 max-w-[1600px] w-full h-[572px] mt-10 ${className}`}
     >
       <div className="flex flex-col ml-[65px] ">
         <h2 className="font-bold font-Poppins text-3xl text-left mt-[25px] ml-[40px]">

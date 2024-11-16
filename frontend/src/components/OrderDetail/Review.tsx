@@ -2,9 +2,6 @@ import ReviewCart from './ReviewCart'
 import StarReview from './StarReview'
 
 const Review = () => {
-
-
-
     return(
           <div className="flex justify-center items-center">
             <div className="h-[817px] w-[908px] mb-14 flex flex-col justify-center items-center gap-[5.35rem] bg-neutral-100 rounded-[15px]">

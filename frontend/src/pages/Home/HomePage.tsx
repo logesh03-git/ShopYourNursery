@@ -33,15 +33,9 @@ export default function Home() {
       >
         <Vase />
       </Suspense>
-      <Suspense
-        fallback={
-          <div className="flex justify-center items-center h-screen font-semibold text-xl">
-            Loading Products...
-          </div>
-        }
-      >
+      
         <CustomerReviews />
-      </Suspense>
+     
     </>
   );
 }

@@ -1,15 +1,17 @@
 type ReviewPropsType = {
   card: {
     id: number;
-    review: string;
-    reviewer: string;
-    avatar: string;
+    comment: string;
+    rating: string;
+    avatar?: string;
   };
 };
 export default function ReviewCard({ card }: ReviewPropsType) {
   return (
     <div className="bg-[#DDF2D0] rounded-[0.9375rem] w-[29rem] h-[16.2rem] pt-7  pl-10 pr-8 pb-8 shrink-0">
-      <div className="text-center font-Inter ml-5 mt-2 mr-2">{card.review}</div>
+      <div className="text-center font-Inter ml-5 mt-2 mr-2">
+        {card.comment}
+      </div>
       <div className="flex gap-x-5 items-center mt-8">
         <div className="rounded-full shrink-0 size-10 bg-slate-400 overflow-hidden">
           <img
@@ -18,9 +20,7 @@ export default function ReviewCard({ card }: ReviewPropsType) {
             }
           />
         </div>
-        <h3 className="font-Philosopher text-[#445839] font-bold">
-          {card.reviewer}
-        </h3>
+        <h3 className="font-Philosopher text-[#445839] font-bold">sarah</h3>
       </div>
     </div>
   );
