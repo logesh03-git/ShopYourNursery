@@ -8,6 +8,7 @@ import { useQuery } from "@tanstack/react-query";
 import * as apiClient from "../../apiClient/apiClient";
 import { useSearchParams } from "react-router-dom";
 import Pagination from "./Pagination";
+import Spinner from "../Loading/Spinner";
 
 const defaultFilter: any = {};
 filterTypes.forEach((type: string) => {
@@ -24,7 +25,7 @@ export default function ShopProducts() {
     selectedFilter?.page,
   ];
   const [_, setSearchParams] = useSearchParams();
-  const { data, isLoading } = useQuery({
+  const { data, isLoading, error } = useQuery({
     queryKey: ["fetchPlants", ...dependencyArray],
     queryFn: () => {
       setSearchParams(selectedFilter);
@@ -55,7 +56,7 @@ export default function ShopProducts() {
   return (
     <div className="max-w-[1600px] w-full">
       <AdBanner />
-      <div className="px-[4vw] flex gap-x-14 ">
+      <div className="px-[4vw] flex gap-x-14 w-full">
         <Filter
           filterMap={filterMap}
           handleFilter={handleFilter}
@@ -63,13 +64,18 @@ export default function ShopProducts() {
           handleClear={handleClear}
         />
         {isLoading ? (
-          <div className="h-96 flex flex-col justify-center items-center">
-            Fetching ...
+          <div className="font-medium  flex justify-center items-center gap-x-4 h-96 w-full">
+            <Spinner />
+            <span>Fetching ...</span>
+          </div>
+        ) : !data ? (
+          <div className="font-medium  flex justify-center items-center gap-x-4 h-96 w-full">
+            {error?.message}
           </div>
         ) : (
           data.plants && (
             <div>
-              {data.plants.length == 0 ? (
+              {data?.plants.length == 0 ? (
                 <div className="font-medium h-[10rem] flex items-center justify-center">
                   No Plants Found
                 </div>
@@ -77,7 +83,7 @@ export default function ShopProducts() {
                 <Products products={data?.plants} />
               )}
 
-              {data.pagination.pages !== 1 && (
+              {data?.pagination.pages !== 1 && (
                 <Pagination
                   pages={data.pagination.pages}
                   activePage={
