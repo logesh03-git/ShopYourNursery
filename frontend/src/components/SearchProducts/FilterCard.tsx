@@ -52,6 +52,7 @@ export default function FilterCard({
                 )}
               />
               <div className="flex gap-x-1 items-center">
+                {filter?.type == "rating" && item}
                 {filter.type == "size" &&
                   item.charAt(0).toUpperCase() + item.slice(1)}
                 {filter.type == "place" && item}
