@@ -3,6 +3,10 @@ export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {
+      backgroundImage: {
+        authBg:
+          "url('https://res.cloudinary.com/di83yoe1d/image/upload/v1731992379/ShopPlants/Authentication/g2olim9vshgqibws3nsi.png')",
+      },
       boxShadow: {
         shadowDown: "0px 4px 4px 0px rgba(0, 0, 0, 0.25)",
         down: "0px 1.349px 1.349px 0px rgba(0, 0, 0, 0.25)",
@@ -42,7 +46,7 @@ export default {
           "100%": { transform: "translateY(20px)", opacity: "0" },
         },
         flicker: {
-          "0%, 100%": { transform: "translateX(0)", border:"4px solid red" },
+          "0%, 100%": { transform: "translateX(0)", border: "4px solid red" },
           "50%": { transform: "translateX(-10px)" },
         },
       },

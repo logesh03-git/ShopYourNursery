@@ -3,7 +3,10 @@ require("dotenv").config();
 const connectDB = require("./config/db");
 const path = require("path");
 const cors = require("cors");
+const cookieParser = require("cookie-parser");
+//routes handlers
 const apiRouter = require("./routes/api.route");
+
 const app = express();
 const PORT = process.env.PORT || 3003;
 
@@ -11,6 +14,7 @@ const PORT = process.env.PORT || 3003;
 connectDB();
 //cors for handling cross origin requests
 app.use(cors());
+app.use(cookieParser());
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));

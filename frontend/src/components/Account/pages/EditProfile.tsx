@@ -13,7 +13,7 @@ const EditProfile = () => {
               <input
                 type="radio"
                 name="title"
-                value="Ms/Mrs"
+                defaultValue="Ms/Mrs"
                 className="text-black font-inter text-[16px] font-normal leading-normal mr-2 accent-green-600"
               />
               <span className="text-black font-inter text-[16px] font-normal leading-normal mr-20">
@@ -25,7 +25,7 @@ const EditProfile = () => {
               <input
                 type="radio"
                 name="title"
-                value="Mr"
+                defaultValue="Mr"
                 className="text-black font-inter text-[16px] font-normal leading-normal mr-2 accent-green-600"
               />
               <span className="text-black font-inter text-[16px] font-normal leading-normal">
@@ -45,7 +45,7 @@ const EditProfile = () => {
               </label>
               <input
                 type="text"
-                value="Cameron"
+                defaultValue="Cameron"
                 className=" bg-[#F5F5F5] p-2 w-full"
               />
             </div>
@@ -55,7 +55,7 @@ const EditProfile = () => {
               </label>
               <input
                 type="text"
-                value="Williamson"
+                defaultValue="Williamson"
                 className=" bg-[#F5F5F5] p-2 w-full"
               />
             </div>
@@ -69,7 +69,7 @@ const EditProfile = () => {
               </label>
               <input
                 type="text"
-                value="(239) 555-0108"
+                defaultValue="(239) 555-0108"
                 className=" bg-[#F5F5F5] p-2 w-full"
               />
             </div>

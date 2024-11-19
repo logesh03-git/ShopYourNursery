@@ -9,11 +9,15 @@ import { NavLink } from "react-router-dom";
 import { useCart } from "../../hooks/useCart";
 import { usePreOrder } from "../../hooks/usePreOrder";
 import Badge from "./Badge";
+import { useContext } from "react";
+import { WishListContext } from "../../contexts/WishListProvider";
 export default function Header() {
   const { cart } = useCart();
+  const { wishList } = useContext(WishListContext);
   const { preOrderCart } = usePreOrder();
 
   const productCountInCart = cart.length + preOrderCart.length;
+  const productCountInWishList = wishList.length;
 
   return (
     <div className="min-h-[6rem] border-b border-b-[#BDE3A6] px-8 flex items-center flex-wrap gap-x-8 flex-col gap-y-4 md:flex-row  xl:justify-between font-Poppins py-4 xl:py-0 justify-center w-full max-w-[1600px]">
@@ -107,10 +111,13 @@ export default function Header() {
             </NavLink>
           </div>
           <div>
-            <NavLink to="/favorite" className={``}>
-              {({ isActive }) =>
-                isActive ? <FavoriteIcon /> : <FavoriteBorderOutlinedIcon />
-              }
+            <NavLink to="/favorite" className={`relative`}>
+              {({ isActive }) => (
+                <>
+                  {isActive ? <FavoriteIcon /> : <FavoriteBorderOutlinedIcon />}
+                  <Badge count={productCountInWishList} />
+                </>
+              )}
             </NavLink>
           </div>
           <div>

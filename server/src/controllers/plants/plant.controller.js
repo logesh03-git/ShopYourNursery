@@ -3,9 +3,7 @@ const queryConstructor = require("../../utils/queryConstructor");
 const searchPlants = async (req, res) => {
   try {
     const filters = req.body.filters;
-    console.log(req.body);
     const query = queryConstructor(filters);
-    console.log("h");
     //pagination logic
     const pageSize = 8;
     const pageNumber = parseInt(filters.page ? filters.page.toString() : "1");

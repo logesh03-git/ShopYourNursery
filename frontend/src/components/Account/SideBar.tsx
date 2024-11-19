@@ -56,6 +56,7 @@ export default function SideBar() {
       <div className="flex flex-col gap-y-4">
         {config.map((item) => (
           <NavLink
+            key={item.id}
             to={item?.link}
             className={({ isActive }) =>
               `p-[0.6rem] flex gap-x-4 justify-between items-center  rounded-[0.9375rem] ${

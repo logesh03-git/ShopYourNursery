@@ -26,6 +26,8 @@ import { Terms } from "./components/Account/pages/Terms/Terms";
 import { Help } from "./components/Account/pages/Help/Help";
 import Address from "./pages/Address/Address";
 import PayCheckout from "./pages/PaymentPage/PayCheckout";
+import Signup from "./components/Signup/Signup";
+import OtpForm from "./components/Signup/OtpForm";
 export default function App() {
   return (
     <BrowserRouter>
@@ -188,6 +190,9 @@ export default function App() {
           <Route path="faqs" element={<Faq />} />
           <Route path="terms" element={<Terms />} />
         </Route>
+
+        <Route path="/signup" element={<Signup />} />
+        <Route path="/signup/verify-otp" element={<OtpForm />} />
       </Routes>
     </BrowserRouter>
   );
