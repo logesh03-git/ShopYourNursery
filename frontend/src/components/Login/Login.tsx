@@ -3,17 +3,15 @@ import { useNavigate } from "react-router-dom";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { useMutation } from "@tanstack/react-query";
 import { signUp } from "../../apiClient/apiClient";
-const Signup = () => {
+const Login = () => {
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
     email: "",
     password: "",
     termsAndConditions: false,
   });
-  const { mutate, isPending, isError, error } = useMutation({
+  const { isPending, isError, error } = useMutation({
     mutationFn: (data: any) => signUp(data),
     onSuccess(data) {
       if (data?.email && data?.otpExpiry) {
@@ -32,9 +30,9 @@ const Signup = () => {
       [name]: type === "checkbox" ? checked : value,
     }));
   };
-  const handleSignUp = (e: any) => {
+  const handleLogin = (e: any) => {
     e.preventDefault();
-    mutate(formData);
+    // mutate({});
   };
   return (
     <div className="w-[100vw] h-[100vh] flex items-start justify-center bg-cover bg-center bg-authBg">
@@ -43,7 +41,7 @@ const Signup = () => {
           <h1 className="text-3xl font-semibold text-center mb-4 text-black font-['Pacifico'] leading-custom tracking-wide">
             Welcome Back
           </h1>
-          <p className="text-center mb-6 text-gray-400 font-['Pacifico'] text-lg leading-normal">
+          <p className="text-center mb-6 text-[#8C8C8C] font-['Pacifico'] text-lg leading-normal">
             Plants are the earth's lungs
           </p>
           <div
@@ -53,46 +51,7 @@ const Signup = () => {
           >
             <p>{error?.message}</p>
           </div>
-          <form className="mt-10" onSubmit={handleSignUp}>
-            <div className="mb-4 flex justify-between ">
-              <div className="flex flex-col ">
-                <label
-                  className=" text-black mb-1 font-Poppins text-base font-medium leading-[24px] tracking-wide "
-                  htmlFor="firstName"
-                >
-                  First Name{" "}
-                </label>
-                <input
-                  type="text"
-                  name="firstName"
-                  onChange={handleChange}
-                  value={formData.firstName}
-                  id="firstName"
-                  placeholder="John"
-                  className="w-full  py-2 border-b border-gray-300 focus:outline-none text-gray-500 font-poppins text-sm"
-                  required
-                />
-              </div>
-
-              <div className="flex flex-col">
-                <label
-                  className=" text-black mb-1 font-Poppins text-base font-medium leading-[24px] tracking-wide "
-                  htmlFor="lastName"
-                >
-                  Last Name{" "}
-                </label>
-                <input
-                  type="text"
-                  name="lastName"
-                  onChange={handleChange}
-                  value={formData.lastName}
-                  id="lastName"
-                  placeholder="Doe"
-                  className="w-full  py-2 border-b border-gray-300 focus:outline-none text-gray-500 font-poppins text-sm"
-                  required
-                />
-              </div>
-            </div>
+          <form className="mt-10" onSubmit={handleLogin}>
             <div className="mb-4">
               <label
                 className="block text-black mb-1 font-Poppins text-base font-medium leading-[24px] tracking-wide"
@@ -169,28 +128,19 @@ const Signup = () => {
               className="flex justify-center items-center gap-2 self-stretch rounded-[25px] bg-[#7AA262] shadow-[0px_4px_4px_rgba(0,0,0,0.25)] w-full px-40 py-2 mt-8"
             >
               <span className="text-white font-bold">
-                {isPending ? "Processing..." : "Sign Up"}
+                {isPending ? "Processing..." : "Login"}
               </span>
             </button>
           </form>
 
-          {/* <div className="flex justify-center gap-10 mb-[40px] mt-[40px]">
-          <button className="text-gray-700 hover:text-gray-900 transition">
-            <img src={""} alt="" />
-          </button>
-          <button className="text-gray-700 hover:text-gray-900 transition">
-            <img src={""} alt="" />
-          </button>
-        </div> */}
-
           <p className="text-center text-[#8C8C8C] text-sm font-normal font-Poppins mt-5">
-            Already have an account ?{" "}
+            Don't have an account ?{" "}
             <a
-              onClick={() => navigate("/login")}
+              onClick={() => navigate("/signup")}
               className="ml-2 cursor-pointer text-black text-base font-medium leading-6 tracking-[0.5px] font-Poppins "
             >
               {" "}
-              Log In
+              Sign Up
             </a>
           </p>
         </div>
@@ -199,4 +149,4 @@ const Signup = () => {
   );
 };
 
-export default Signup;
+export default Login;
