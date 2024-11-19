@@ -9,10 +9,13 @@ const handleRegister = async (req, res) => {
 
     // Check if the email already exists
     let user = await User.findOne({ email: req.body.email });
-    if (user) {
+    if (user && user?.isVerified) {
       return res
         .status(409)
         .json({ success: false, message: "User already exists" });
+    }
+    if (user) {
+      await User.findByIdAndDelete(user._id);
     }
     // Create a new user (without verifying)
     const hashedPassword = await bcrypt.hash(password, 10);
@@ -26,7 +29,6 @@ const handleRegister = async (req, res) => {
     //Generate OTP
     const otpCode = generateOTP();
     const otpExpiry = new Date(Date.now() + 2 * 60 * 1000);
-    console.log(otpExpiry);
     // Save OTP to OTP collection
     const otpEntry = new OTP({
       userId: newUser._id,
@@ -36,12 +38,12 @@ const handleRegister = async (req, res) => {
     await otpEntry.save();
     // Send OTP to user's email
     const mailStatus = await sendMail({ email: email, otp: otpCode });
-    console.log(mailStatus);
     return res.status(200).json({
       success: true,
+      email: email,
+      otpExpiry: otpExpiry,
       message: "OTP sent successfully. Please check your email.",
       mailStatus,
-      otpEntry,
     });
   } catch (error) {
     return res.status(500).json({

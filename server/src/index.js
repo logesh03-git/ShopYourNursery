@@ -13,7 +13,7 @@ const PORT = process.env.PORT || 3003;
 //connection to database
 connectDB();
 //cors for handling cross origin requests
-app.use(cors());
+app.use(cors({ origin: process.env.FE, credentials: true }));
 app.use(cookieParser());
 
 app.use(express.json());
@@ -23,6 +23,7 @@ app.use(express.static(path.join(__dirname, "../../frontend/dist")));
 //api route navigation to handle all api requests
 app.use("/api", apiRouter);
 app.get("/check", (req, res) => {
+  console.log(req.cookies.auth_token);
   res.send("Server is Healthy");
 });
 

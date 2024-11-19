@@ -2,7 +2,7 @@ const express = require("express");
 const paymentRouter = require("./payments.route");
 const plantRouter = require("./plants.route");
 const userRouter = require("./users.route");
-const authRouter = require("./authRouter");
+const authRouter = require("./auth.route");
 const router = express.Router();
 
 router.use("/payments", paymentRouter);
