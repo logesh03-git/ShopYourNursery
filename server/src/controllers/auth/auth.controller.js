@@ -1,6 +1,32 @@
 const jwt = require("jsonwebtoken");
 const OTP = require("../../models/otp.model");
 const User = require("../../models/users.model");
+const bcrypt = require("bcrypt");
+
+const logIn = async (req, res) => {
+  try {
+    const { email, password } = req.body;
+    const user = await User.findOne({ email, isVerified: true });
+    if (!user) {
+      return res.status(401).json({ message: "Invalid Crendentials" });
+    }
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) {
+      return res.status(401).json({ message: "Invalid Crendentials" });
+    }
+    const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET_KEY, {
+      expiresIn: "2d",
+    });
+    res.cookie("auth_token", token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      maxAge: 8640000,
+    });
+    return res.json({ userId: user._id }); //remove token from response
+  } catch (error) {
+    return res.status(500).json({ message: "Something went wrong" });
+  }
+};
 
 const verifyOtp = async (req, res) => {
   try {
@@ -50,4 +76,4 @@ const verifyOtp = async (req, res) => {
   }
 };
 
-module.exports = { verifyOtp };
+module.exports = { verifyOtp, logIn };
