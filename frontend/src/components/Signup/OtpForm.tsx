@@ -1,7 +1,10 @@
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useState, useRef, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { verifyOtp } from "../../apiClient/apiClient";
+import { useDispatch } from "react-redux";
+import { login } from "../../features/auth/authSlice";
+import { useAppContext } from "../../contexts/AppContext";
 
 const OtpForm = () => {
   const navigate = useNavigate();
@@ -48,7 +51,9 @@ const OtpForm = () => {
   const [timeLeft, setTimeLeft] = useState(
     Math.floor((date1.getTime() - new Date().getTime()) / 1000)
   );
-
+  const { showToast } = useAppContext();
+  const queryClient = useQueryClient();
+  const dispatch = useDispatch();
   const { mutate, isPending, error, isError } = useMutation({
     mutationFn: () =>
       verifyOtp({
@@ -57,8 +62,16 @@ const OtpForm = () => {
         userId: data?.userId,
       }),
     onError: () => {},
-    onSuccess: () => {
-      navigate("/?login=true");
+    onSuccess: async (data) => {
+      dispatch(login({ userId: data?.userId }));
+      showToast({
+        message: "Signup Success! You are in",
+        type: "SUCCESS",
+      });
+      await queryClient.invalidateQueries({
+        queryKey: ["validateToken"],
+      });
+      navigate("/");
     },
   });
   useEffect(() => {

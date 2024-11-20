@@ -12,14 +12,16 @@ import Badge from "./Badge";
 import { useContext, useState } from "react";
 import { WishListContext } from "../../contexts/WishListProvider";
 import HoverForm from "./HoverForm";
+import { useSelector } from "react-redux";
 export default function Header() {
+  const { isAuthenticated } = useSelector((state: any) => state.auth);
   const { cart } = useCart();
   const { wishList } = useContext(WishListContext);
   const { preOrderCart } = usePreOrder();
 
   const productCountInCart = cart.length + preOrderCart.length;
   const productCountInWishList = wishList.length;
-  const [showPopUp, setShowPopUp] = useState(false);
+  const [showPopUp, setShowPopUp] = useState(true);
   return (
     <div className="min-h-[6rem] border-b border-b-[#BDE3A6] px-8 flex items-center flex-wrap gap-x-8 flex-col gap-y-4 md:flex-row  xl:justify-between font-Poppins py-4 xl:py-0 justify-center w-full max-w-[1600px]">
       <NavLink to="/" className="text-xl font-bold  xl:hidden">
@@ -106,20 +108,25 @@ export default function Header() {
         <div className="items-center justify-between gap-x-3 hidden sm:flex">
           <div
             className="relative"
-            onClick={() => setShowPopUp((prev) => !prev)}
+            onClick={() => !isAuthenticated && setShowPopUp((prev) => !prev)}
           >
-            <NavLink to="/account" className={``}>
-              {({ isActive }) => (
-                <>
-                  {isActive ? (
-                    <AccountCircleIcon />
-                  ) : (
-                    <AccountCircleOutlinedIcon />
-                  )}
-                </>
-              )}
-            </NavLink>
-            {showPopUp && (
+            {isAuthenticated ? (
+              <NavLink to="/account" className={``}>
+                {({ isActive }) => (
+                  <>
+                    {isActive ? (
+                      <AccountCircleIcon />
+                    ) : (
+                      <AccountCircleOutlinedIcon />
+                    )}
+                  </>
+                )}
+              </NavLink>
+            ) : (
+              <AccountCircleOutlinedIcon />
+            )}
+
+            {showPopUp && !isAuthenticated && (
               <div className="absolute top-10 -right-4 z-50">
                 <HoverForm />
               </div>

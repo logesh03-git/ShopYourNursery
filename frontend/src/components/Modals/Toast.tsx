@@ -3,7 +3,7 @@ const Toast = ({ message, type, onClose }: any) => {
   useEffect(() => {
     const timer = setTimeout(() => {
       onClose();
-    }, 5000);
+    }, 2500);
     return () => {
       clearTimeout(timer);
     };

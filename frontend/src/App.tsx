@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import React from "react";
 const HomePage = React.lazy(() => import("./pages/Home/HomePage"));
 const CartPage = React.lazy(() => import("./pages/Cart/CartPage"));
@@ -29,7 +29,10 @@ import PayCheckout from "./pages/PaymentPage/PayCheckout";
 import Signup from "./components/Signup/Signup";
 import OtpForm from "./components/Signup/OtpForm";
 import LoginPage from "./pages/Login/LoginPage";
+import ProtectedRoute from "./protectedroutes/ProtectedRoute";
+import { useSelector } from "react-redux";
 export default function App() {
+  const { isAuthenticated } = useSelector((state: any) => state.auth);
   return (
     <BrowserRouter>
       <Routes>
@@ -163,37 +166,42 @@ export default function App() {
             </Layout>
           }
         />
-        <Route
-          path="/account"
-          element={
-            <Layout>
-              <Suspense fallback={<Loading />}>
-                <AccountPage />
-              </Suspense>
-            </Layout>
-          }
-        >
-          <Route index element={<EditProfile />} />
-          <Route path="edit-profile" element={<EditProfile />} />
-          <Route path="orders" element={<Orders />} />
-          <Route path="orders/details" element={<OrderDetails />} />
-          <Route path="your-cart" element={<div>cart page</div>} />
-          <Route path="wishlist" element={<div>wishlist page</div>} />
+        {isAuthenticated && (
           <Route
-            path="address-book"
+            path="/account"
             element={
-              <div className="flex justify-center items-center">
-                <Address flag={true} />
-              </div>
+              <ProtectedRoute>
+                <Layout>
+                  <Suspense fallback={<Loading />}>
+                    <AccountPage />
+                  </Suspense>
+                </Layout>
+              </ProtectedRoute>
             }
-          />
-          <Route path="help" element={<Help />} />
-          <Route path="faqs" element={<Faq />} />
-          <Route path="terms" element={<Terms />} />
-        </Route>
+          >
+            <Route index element={<EditProfile />} />
+            <Route path="edit-profile" element={<EditProfile />} />
+            <Route path="orders" element={<Orders />} />
+            <Route path="orders/details" element={<OrderDetails />} />
+            <Route path="your-cart" element={<div>cart page</div>} />
+            <Route path="wishlist" element={<div>wishlist page</div>} />
+            <Route
+              path="address-book"
+              element={
+                <div className="flex justify-center items-center">
+                  <Address flag={true} />
+                </div>
+              }
+            />
+            <Route path="help" element={<Help />} />
+            <Route path="faqs" element={<Faq />} />
+            <Route path="terms" element={<Terms />} />
+          </Route>
+        )}
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/signup/verify-otp" element={<OtpForm />} />
+        <Route path="*" element={<Navigate to="/" />} />
       </Routes>
     </BrowserRouter>
   );

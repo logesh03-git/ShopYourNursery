@@ -17,6 +17,7 @@ const AppContext = React.createContext<AppContext | undefined>(undefined);
 export const AppContextProvider = ({ children }: Props) => {
   const [toast, setToast] = useState<ToastMessage | undefined>(undefined);
   useValidateAuth();
+  //here we have to get loading states from useValidateAuth and display only when authentication is true, so we can get rid of some issues like, we can see login or signup btns even after logged in due to js needs to run and update authenticated state to true
   return (
     <AppContext.Provider
       value={{

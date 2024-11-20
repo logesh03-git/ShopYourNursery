@@ -25,7 +25,7 @@ const Login = () => {
       await queryClient.invalidateQueries({
         queryKey: ["validateToken"],
       });
-      console.log(data);
+      // console.log(data);
       navigate("/");
     },
     onError(error) {
