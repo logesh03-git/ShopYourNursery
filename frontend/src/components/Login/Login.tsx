@@ -1,9 +1,14 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
-import { useMutation } from "@tanstack/react-query";
-import { signUp } from "../../apiClient/apiClient";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { signIn } from "../../apiClient/apiClient";
+import { useAppContext } from "../../contexts/AppContext";
+import { useDispatch } from "react-redux";
+import { login } from "../../features/auth/authSlice";
 const Login = () => {
+  const dispatch = useDispatch();
+  const { showToast } = useAppContext();
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({
@@ -11,16 +16,20 @@ const Login = () => {
     password: "",
     termsAndConditions: false,
   });
-  const { isPending, isError, error } = useMutation({
-    mutationFn: (data: any) => signUp(data),
-    onSuccess(data) {
-      if (data?.email && data?.otpExpiry) {
-        data.flag = "signup";
-        navigate("verify-otp", { state: JSON.stringify(data) });
-      }
-    },
-    onError: (data) => {
+  const queryClient = useQueryClient();
+  const { mutate, isPending, isError, error } = useMutation({
+    mutationFn: (data: any) => signIn(data),
+    onSuccess: async (data) => {
+      dispatch(login({ userId: data?.userId }));
+      showToast({ message: "Login Success!", type: "SUCCESS" });
+      await queryClient.invalidateQueries({
+        queryKey: ["validateToken"],
+      });
       console.log(data);
+      navigate("/");
+    },
+    onError(error) {
+      showToast({ message: error.message, type: "ERROR" });
     },
   });
   const handleChange = (e: any) => {
@@ -32,7 +41,7 @@ const Login = () => {
   };
   const handleLogin = (e: any) => {
     e.preventDefault();
-    // mutate({});
+    mutate(formData);
   };
   return (
     <div className="w-[100vw] h-[100vh] flex items-start justify-center bg-cover bg-center bg-authBg">
@@ -51,7 +60,7 @@ const Login = () => {
           >
             <p>{error?.message}</p>
           </div>
-          <form className="mt-10" onSubmit={handleLogin}>
+          <form className="mt-5" onSubmit={handleLogin}>
             <div className="mb-4">
               <label
                 className="block text-black mb-1 font-Poppins text-base font-medium leading-[24px] tracking-wide"

@@ -66,3 +66,41 @@ export const verifyOtp = async (data: any) => {
   }
   return json;
 };
+
+export const signIn = async (data: any) => {
+  const response = await fetch(`${API_BASE_URL}/api/auth/signin`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    credentials: "include",
+    body: JSON.stringify(data),
+  });
+  if (response.status == 401) {
+    throw new Error("Invalid Crendentials");
+  }
+
+  if (!response.ok) {
+    throw new Error("Something went wrong");
+  }
+  const json = await response.json();
+  return json;
+};
+
+export const validateToken = async () => {
+  const response = await fetch(`${API_BASE_URL}/api/auth/validate-token`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    credentials: "include",
+  });
+  if (response.status == 401) {
+    throw new Error("Invalid Token");
+  }
+  if (!response.ok) {
+    throw new Error("Something went wrong");
+  }
+  const json = await response.json();
+  return json;
+};
