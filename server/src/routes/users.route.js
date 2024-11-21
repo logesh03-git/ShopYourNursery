@@ -4,47 +4,19 @@ const postReviews = require("../controllers/users/postReviews.controller");
 const getReviews = require("../controllers/users/getReviews.controller");
 const handleRegister = require("../controllers/users/handleRegister.controller");
 const signUpValidator = require("../middlewares/signUpValidator");
+const {
+  handleAddToWishList,
+  handleGetWishList,
+  handleDeleteFromWishList,
+} = require("../controllers/wishlist/wishlist.controller");
+const { verifyToken } = require("../middlewares/auth.middleware");
 
 const router = express.Router();
 
 router.post("/signup", signUpValidator, handleRegister);
 router.post("/reviews", reviewValidator, postReviews);
 router.get("/reviews", getReviews);
-
+router.post("/wishlist", verifyToken, handleAddToWishList);
+router.get("/wishlist", verifyToken, handleGetWishList);
+router.delete("/wishlist/:id", verifyToken, handleDeleteFromWishList);
 module.exports = router;
-
-// async (req, res) => {
-//   try {
-//     let user = await User.findOne({ email: req.body.email });
-//     if (user) {
-//       return res
-//         .status(409)
-//         .json({ success: false, message: "User already exists" });
-//     }
-//     user = new User(req.body);
-//     await user.save();
-//     //OTP Logic
-//     const otpCode = generateOTP();
-//     const otpDoc = new OTP({
-//       userId: user._id,
-//       otp: otpCode,
-//       otpExpiry: new Date(Date.now() + 2 * 60 * 1000),
-//     });
-//     await otpDoc.save();
-
-//     const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET_KEY, {
-//       expiresIn: "1d",
-//     });
-//     res.cookie("auth_token", token, {
-//       httpOnly: true,
-//       secure: process.env.NODE_ENV === "production",
-//       maxAge: 8640000,
-//     });
-//     return res.status(201).json({
-//       success: true,
-//       message: "Signed Up",
-//     });
-//   } catch (error) {
-//     return res.status(500).json({ message: "Something went wrong" });
-//   }
-// }

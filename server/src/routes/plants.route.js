@@ -19,9 +19,7 @@ router.post("/search", searchPlants);
 router.get("/:id", async (req, res) => {
   const id = req.params.id.toString();
   try {
-    const plant = await Plant.findOne({
-      _id: id,
-    });
+    const plant = await Plant.findOne({ _id: id });
     return res.json(plant);
   } catch (error) {
     return res
