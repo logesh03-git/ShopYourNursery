@@ -3,7 +3,7 @@ import Star from "../../svgIcons/Star";
 import waterdrop from "../../assets/producticons/water.png";
 import sun from "../../assets/producticons/sun.png";
 import Button from "./Button";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import IconVthText from "./IconVthText";
 import Shipping from "../../svgIcons/Shipping";
 import Replacement from "../../svgIcons/Replacement";
@@ -21,7 +21,14 @@ import CartToast from "../Cart/modal/CartToast";
 import { capitalize } from "../../utils/capitalize";
 export default function ProductDetails({ product }: any) {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const { wishList, handleFavorite } = useContext(WishListContext);
+  const { handleFavorite, isItemInWishList } = useContext(WishListContext);
+  const res = isItemInWishList(product._id);
+  console.log("testing", res);
+  const [isLiked, setIsLiked] = useState(res);
+  console.log(isLiked);
+  useEffect(() => {
+    setIsLiked(res);
+  }, [res]);
   const navigate = useNavigate();
   const { handleAddToCart } = useCart();
   const { handleAddToPreOrderCart } = usePreOrder();
@@ -38,8 +45,9 @@ export default function ProductDetails({ product }: any) {
   const handleChangeImg = (index: number) => {
     setImgIndex(index);
   };
-  const handleAddToFavorite = () => {
-    const msg = handleFavorite(product.id);
+  const handleAddDelToFavorite = () => {
+    setIsLiked((prev: any) => !prev);
+    const msg = handleFavorite(product);
     setToast(msg);
     setTimeout(() => setToast(""), 3000);
   };
@@ -111,13 +119,13 @@ export default function ProductDetails({ product }: any) {
             src={imgs[imgIndex]}
           />
           <div
-            onClick={handleAddToFavorite}
+            onClick={handleAddDelToFavorite}
             className="absolute bg-white/80 cursor-pointer top-8 right-8 rounded-full overflow-hidden size-[2.3rem] flex justify-center items-center pt-1"
           >
             <Favorite
               size={22}
               outlineColor="black"
-              fill={wishList.includes(product.id) ? "red" : ""}
+              fill={isLiked ? "red" : ""}
             />
           </div>
         </div>

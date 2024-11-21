@@ -1,10 +1,10 @@
 // import DeleteIcon from "@mui/icons-material/Delete";
 import { useNavigate } from "react-router-dom";
 import trash from "../../assets/icons/trash.png";
-export default function FavoriteItem({ product, handleDelete }: any) {
+export default function FavoriteItem({ product, handleFavorite }: any) {
   const navigate = useNavigate();
   const handleNavigate = () => {
-    navigate(`/shop-plants/${product.id}`);
+    navigate(`/shop-plants/${product._id}`);
   };
   const isInStock = parseInt(product?.quantity) !== 0;
   return (
@@ -13,7 +13,7 @@ export default function FavoriteItem({ product, handleDelete }: any) {
         <div className="gap-x-10 flex justify-start items-start border-none cursor-pointer">
           <div className="flex gap-x-5 items-center justify-center">
             <div
-              onClick={() => handleDelete(product.id)}
+              onClick={() => handleFavorite(product)}
               className="ml-4 text-red-500 cursor-pointer"
             >
               <img src={trash} />

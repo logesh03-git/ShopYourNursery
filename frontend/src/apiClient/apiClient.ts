@@ -104,3 +104,62 @@ export const validateToken = async () => {
   const json = await response.json();
   return json;
 };
+export const postInWishlist = async (data: any) => {
+  const response = await fetch(`${API_BASE_URL}/api/users/wishlist`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    credentials: "include",
+    body: JSON.stringify(data),
+  });
+  const json = await response.json();
+  if (response.status == 401) {
+    throw new Error("Unauthorized");
+  }
+  if (response.status == 409) {
+    throw new Error("Item Already In  WishList");
+  }
+  if (!response.ok) {
+    throw new Error("Something went wrong");
+  }
+  return json;
+};
+
+export const getWishlist = async () => {
+  const response = await fetch(`${API_BASE_URL}/api/users/wishlist`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    credentials: "include",
+  });
+  const json = await response.json();
+  if (response.status == 401) {
+    throw new Error("Unauthorized");
+  }
+  if (!response.ok) {
+    throw new Error("Something went wrong");
+  }
+  return json;
+};
+export const deleteFromWishlist = async (id: string) => {
+  const response = await fetch(`${API_BASE_URL}/api/users/wishlist/${id}`, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    credentials: "include",
+  });
+  const json = await response.json();
+  if (response.status == 404) {
+    throw new Error("WishList not Found");
+  }
+  if (response.status == 401) {
+    throw new Error("Unauthorized");
+  }
+  if (!response.ok) {
+    throw new Error("Something went wrong");
+  }
+  return json;
+};

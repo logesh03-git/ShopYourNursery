@@ -8,7 +8,7 @@ export default function useValidateAuth() {
   const { isAuthenticated } = useSelector((state: any) => state.auth);
   const dispatch = useDispatch();
   console.log(isAuthenticated);
-  const { data } = useQuery({
+  const { data, isLoading, isSuccess } = useQuery({
     queryKey: ["validateToken"],
     queryFn: () => validateToken(),
     retry: false,
@@ -19,5 +19,5 @@ export default function useValidateAuth() {
     }
   }, [isAuthenticated, data]);
 
-  return data;
+  return { data, isLoading, isSuccess };
 }

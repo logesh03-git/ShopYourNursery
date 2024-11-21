@@ -3,12 +3,12 @@ import Favorite from "../../svgIcons/Favorite";
 import Star from "../../svgIcons/Star";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import { iconMap } from "../../constants/iconMapping";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { WishListContext } from "../../contexts/WishListProvider";
 import { useCart } from "../../hooks/useCart";
 import CartToast from "../Cart/modal/CartToast";
 export default function ProductCard({ product }: any) {
-  const { wishList, handleFavorite } = useContext(WishListContext);
+  const { handleFavorite, isItemInWishList } = useContext(WishListContext);
   const navigate = useNavigate();
   const handleNavigate = () => {
     navigate(`/shop-plants/${product._id}`);
@@ -17,8 +17,14 @@ export default function ProductCard({ product }: any) {
   const Name = iconMap.get(product.place)?.name;
   const { handleAddToCart } = useCart();
   const [toast, setToast] = useState("");
+  const res = isItemInWishList(product._id);
+  const [isLiked, setIsLiked] = useState(res);
+  useEffect(() => {
+    setIsLiked(res);
+  }, [res]);
   const handleAddToFavorite = () => {
-    const msg = handleFavorite(product.id);
+    const msg = handleFavorite(product);
+    setIsLiked((prev: any) => !prev);
     setToast(msg);
     setTimeout(() => setToast(""), 3000);
   };
@@ -55,7 +61,7 @@ export default function ProductCard({ product }: any) {
             <Favorite
               size={15}
               outlineColor="black"
-              fill={wishList.includes(product.id) ? "red" : ""}
+              fill={isLiked ? "red" : ""}
             />
           </div>
         </div>

@@ -20,7 +20,7 @@ export default function Header() {
   const { preOrderCart } = usePreOrder();
 
   const productCountInCart = cart.length + preOrderCart.length;
-  const productCountInWishList = wishList.length;
+  const productCountInWishList = wishList?.length || 0;
   const [showPopUp, setShowPopUp] = useState(true);
   return (
     <div className="min-h-[6rem] border-b border-b-[#BDE3A6] px-8 flex items-center flex-wrap gap-x-8 flex-col gap-y-4 md:flex-row  xl:justify-between font-Poppins py-4 xl:py-0 justify-center w-full max-w-[1600px]">
@@ -107,7 +107,7 @@ export default function Header() {
         </div>
         <div className="items-center justify-between gap-x-3 hidden sm:flex">
           <div
-            className="relative"
+            className="relative cursor-pointer"
             onClick={() => !isAuthenticated && setShowPopUp((prev) => !prev)}
           >
             {isAuthenticated ? (

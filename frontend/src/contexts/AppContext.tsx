@@ -1,6 +1,7 @@
 import React, { useContext, useState } from "react";
 import Toast from "../components/Modals/Toast";
 import useValidateAuth from "../hooks/useValidateAuth";
+import Loading from "../components/Loading/Loading";
 
 type ToastMessage = {
   message: string;
@@ -16,7 +17,7 @@ const AppContext = React.createContext<AppContext | undefined>(undefined);
 
 export const AppContextProvider = ({ children }: Props) => {
   const [toast, setToast] = useState<ToastMessage | undefined>(undefined);
-  useValidateAuth();
+  const { isLoading, isSuccess } = useValidateAuth();
   //here we have to get loading states from useValidateAuth and display only when authentication is true, so we can get rid of some issues like, we can see login or signup btns even after logged in due to js needs to run and update authenticated state to true
   return (
     <AppContext.Provider
@@ -31,7 +32,7 @@ export const AppContextProvider = ({ children }: Props) => {
           onClose={() => setToast(undefined)}
         />
       )}
-      {children}
+      {isLoading ? <Loading /> : children}
     </AppContext.Provider>
   );
 };
