@@ -60,6 +60,14 @@ const plantSchema = new mongoose.Schema({
   },
 });
 
+// Create text index for full-text search
+plantSchema.index({
+  title: "text",
+  description: "text",
+  benefits: "text",
+  tag: "text",
+});
+
 const Plant = mongoose.model("Plant", plantSchema);
 
 module.exports = Plant;

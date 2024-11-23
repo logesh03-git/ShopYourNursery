@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import AdBanner from "./Banner/AdBanner";
 import Filter from "./Filter";
 import Products from "./Products";
@@ -17,20 +17,26 @@ filterTypes.forEach((type: string) => {
 
 export default function ShopProducts() {
   const [selectedFilter, setSelectedFilter] = useState<any>(defaultFilter);
+  const [searchParams] = useSearchParams();
+  const [searchQuery, setSearchQuery] = useState("");
+
+  useEffect(() => {
+    setSearchQuery(searchParams.get("query") || "");
+  }, [searchParams]);
+
   const dependencyArray = [
     selectedFilter.price.length,
     selectedFilter.place.length,
     selectedFilter.size.length,
     selectedFilter.rating.length,
     selectedFilter?.page,
+    searchQuery,
   ];
-  const [_, setSearchParams] = useSearchParams();
+  
   const { data, isLoading, error } = useQuery({
     queryKey: ["fetchPlants", ...dependencyArray],
-    queryFn: () => {
-      setSearchParams(selectedFilter);
-      return apiClient.fetchPlants(selectedFilter);
-    },
+    queryFn: () =>
+      apiClient.fetchPlants({ ...selectedFilter, query: searchQuery }),
   });
 
   const handleClear = () => {

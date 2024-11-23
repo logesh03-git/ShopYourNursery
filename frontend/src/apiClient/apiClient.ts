@@ -8,19 +8,20 @@ export const fetchReviews = async () => {
   const json = await response.json();
   return json;
 };
-export const fetchPlants = async (filters: any) => {
+export const fetchPlants = async ({ query, ...filters }) => {
   const response = await fetch(`${API_BASE_URL}/api/plants/search`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ filters }),
+    body: JSON.stringify({ query, filters }),
   });
+
   if (!response.ok) {
     throw new Error("Error fetching plants");
   }
-  const json = await response.json();
-  return json;
+
+  return response.json();
 };
 
 export const signUp = async (formData: any) => {
@@ -118,7 +119,7 @@ export const postInWishlist = async (data: any) => {
     throw new Error("Unauthorized");
   }
   if (response.status == 409) {
-    throw new Error("Item Already In  WishList");
+    throw new Error("Item Already In WishList");
   }
   if (!response.ok) {
     throw new Error("Something went wrong");

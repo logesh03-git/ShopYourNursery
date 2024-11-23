@@ -5,7 +5,7 @@ import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlin
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { useCart } from "../../hooks/useCart";
 import { usePreOrder } from "../../hooks/usePreOrder";
 import Badge from "./Badge";
@@ -18,6 +18,14 @@ export default function Header() {
   const { cart } = useCart();
   const { wishList } = useContext(WishListContext);
   const { preOrderCart } = usePreOrder();
+  const [searchQuery, setSearchQuery] = useState("");
+  const navigate = useNavigate();
+
+  const handleSearch = (e) => {
+    if (e.key === "Enter" && searchQuery.trim()) {
+      navigate(`/shop-plants?query=${encodeURIComponent(searchQuery)}`);
+    }
+  };
 
   const productCountInCart = cart.length + preOrderCart.length;
   const productCountInWishList = wishList?.length || 0;
@@ -100,6 +108,9 @@ export default function Header() {
           <input
             className="placeholder:text-[#A6A6A6] bg-transparent focus:outline-none w-full"
             placeholder="Quick Search"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            onKeyDown={handleSearch}
           />
           <div className="flex items-center justify-center text-xl">
             <RiSearch2Line />
